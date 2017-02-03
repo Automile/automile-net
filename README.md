@@ -1,5 +1,5 @@
-# automile-net
-.NET binding to the Automile API https://api.automile.com
+# Automile REST API for .NET
+.NET binding to the Automile API https://api.automile.com. Need help? Chat with us in all apps or email us at support@automile.com 
 
 **This library allows you to quickly and easily use the Automile API via C# with .NET.**
 

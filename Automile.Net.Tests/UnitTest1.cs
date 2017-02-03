@@ -12,7 +12,6 @@ namespace Automile.Net.Tests
         public void TestAuthenticationAndRefreshToken()
         {
             AutomileClient client = new AutomileClient("username", "password", "api client identifier", "api client secret");
-            client.RefreshAccessToken();
         }
     }
 }

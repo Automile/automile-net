@@ -49,7 +49,7 @@ That's shouldn't have been too hard :sweat_drops:
 * [Trip](#trip-methods)  
 * [Driver](#contact-methods)  
 * [Geofence](#geofence-methods)  
-* [Notification (also webhooks)](#notification-methods)  
+* [Notification (webhooks, e-mail, text, inbox and push)](#notification-methods)  
 
 ### Vehicle Methods
 
@@ -224,6 +224,31 @@ client.DeleteGeofence(881);
 ```
 
 ### Notification Methods
+
+All these methods are used to retrieve one or multiple notifications.
+You can also create, edit, mute, unmute and delete notifications. Notifications was earlier
+called Triggers.
+
+With notifications you can also easily add webhooks, the destination for a notification could be:
+* Webhook (HTTP Post)
+* Text
+* E-mail
+* Inbox (in Automile UI)
+
+#### Webhook format
+```json
+{
+    "triggerMessageHistoryId": 0,
+    "triggerId": 0,
+    "triggerType": 0,
+    "vehicleId": 0,
+    "messageData1": "",
+    "messageData2": ""
+}
+```
+
+The message data 1 and 2 will contains data relating to the actual used notification type. If you for
+example use a notificiation for trip start or trip end the messageData1 will contain the actual trip id.
 
 #### Get all notifications (earlier called triggers)
 ```C#

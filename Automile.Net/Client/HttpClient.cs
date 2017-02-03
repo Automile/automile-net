@@ -98,6 +98,26 @@ namespace Automile.Net
             SetBearerTokenAuthorizationHeader();
         }
 
+        /// <summary>
+        /// Create the client from a saved token in the file system
+        /// </summary>
+        /// <param name="pathToTokenFile"></param>
+        public AutomileClient(string pathToTokenFile) : this()
+        {
+            string tokenJson = System.IO.File.ReadAllText(pathToTokenFile);
+            TokenPair = JsonConvert.DeserializeObject<TokenPair>(tokenJson);
+            SetBearerTokenAuthorizationHeader();
+        }
+
+        /// <summary>
+        /// Save the token to a file
+        /// </summary>
+        /// <param name="path"></param>
+        public void SaveToken(string path)
+        {
+            string tokenJson = JsonConvert.SerializeObject(TokenPair);
+            System.IO.File.WriteAllText(path, tokenJson);
+        }
 
         private void SetAPIClientAuthorizationHeader()
         {

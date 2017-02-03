@@ -94,7 +94,6 @@ namespace Automile.Net
             return JsonConvert.DeserializeObject<List<FuelLevelInputModel>>(response.Content.ReadAsStringAsync().Result);
         }
 
-
         /// <summary>
         /// Get the engine coolant temperature recorded points in the trip
         /// </summary>
@@ -114,19 +113,20 @@ namespace Automile.Net
         /// <returns></returns>
         public IEnumerable<PIDModel> GetTripPIDRaw(int tripId, int pidId)
         {
-            var response = client.GetAsync($"/v1/resourceowner/trips/{tripId}/{pidId}").Result;
+            var response = client.GetAsync($"/v1/resourceowner/trips/{tripId}/pid/{pidId}").Result;
             response.EnsureSuccessStatusCode();
             return JsonConvert.DeserializeObject<List<PIDModel>>(response.Content.ReadAsStringAsync().Result);
         }
 
         /// <summary>
-        /// Get the latitude and longitude records in the trip
+        /// Get the latitude and longitude records in the trip, supports both ongoing and completed trips
         /// </summary>
         /// <param name="tripId"></param>
+        /// <param name="snapToRoad">Set to true if you want to receive latitude and longitude that are adjusted to the actual closest road</param>
         /// <returns></returns>
-        public IEnumerable<TripGeoModel> GeoTripLatitudeLongitude(int tripId, int everyNthRecord = 1)
+        public IEnumerable<TripGeoModel> GeoTripLatitudeLongitude(int tripId, int everyNthRecord = 1, bool snapToRoad = true)
         {
-            var response = client.GetAsync($"/v1/resourceowner/trips/{tripId}/geo?everyNthRecord={everyNthRecord}").Result;
+            var response = client.GetAsync($"/v1/resourceowner/trips/{tripId}/geo?everyNthRecord={everyNthRecord}&snapToRoad={snapToRoad}").Result;
             response.EnsureSuccessStatusCode();
             return JsonConvert.DeserializeObject<List<TripGeoModel>>(response.Content.ReadAsStringAsync().Result);
         }
@@ -182,11 +182,11 @@ namespace Automile.Net
 
 
         /// <summary>
-        /// Get the details about the trip including driving events, speeding and idling
+        /// Get the completed details about the trip including driving events, speeding and idling
         /// </summary>
         /// <param name="tripId"></param>
         /// <returns></returns>
-        public TripConcatenation GetTripDetails(int tripId)
+        public TripConcatenation GetCompletedTripDetails(int tripId)
         {
             var response = client.GetAsync($"/v1/resourceowner/trips/{tripId}/details").Result;
             response.EnsureSuccessStatusCode();
@@ -194,11 +194,11 @@ namespace Automile.Net
         }
 
         /// <summary>
-        /// Get the advanced details about the trip including driving events, speeding, idling, speed and rpm data series
+        /// Get the completed advanced details about the trip including driving events, speeding, idling, speed and rpm data series
         /// </summary>
         /// <param name="tripId"></param>
         /// <returns></returns>
-        public TripConcatenation GetTripDetailsAdvanced(int tripId)
+        public TripConcatenation GetCompletedTripDetailsAdvanced(int tripId)
         {
             var response = client.GetAsync($"/v1/resourceowner/trips/{tripId}/advanced").Result;
             response.EnsureSuccessStatusCode();

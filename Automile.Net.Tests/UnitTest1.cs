@@ -10,15 +10,11 @@ namespace Automile.Net.Tests
     public class UnitTest1
     {
         private AutomileClient client;
-        private TokenPair token;
-
+    
         [TestInitialize]
         public void Initialize()
         {
-            string tokenJson = System.IO.File.ReadAllText(@"c:\temp\token.json");
-            token = JsonConvert.DeserializeObject<TokenPair>(tokenJson);
-            client = new AutomileClient(token);
-            Console.WriteLine("TestClass1.TestInit()");
+            client = new AutomileClient(@"c:\temp\token.json");
         }
 
         [TestMethod]
@@ -115,14 +111,14 @@ namespace Automile.Net.Tests
         [TestMethod]
         public void TestGetTripDetails()
         {
-            TripConcatenation data = client.GetTripDetails(31826384);
+            TripConcatenation data = client.GetCompletedTripDetails(31826384);
             Assert.IsNotNull(data);
         }
 
         [TestMethod]
         public void TestGetTripDetailsAdvanced()
         {
-            TripConcatenation data = client.GetTripDetailsAdvanced(31826384);
+            TripConcatenation data = client.GetCompletedTripDetailsAdvanced(31826384);
             Assert.IsNotNull(data);
         }
 
@@ -145,6 +141,56 @@ namespace Automile.Net.Tests
         {
             Contact2DetailModel driver = client.GetMe();
             Assert.IsNotNull(driver);
+        }
+
+        [TestMethod]
+        public void TestEditTrip()
+        {
+            client.EditTrip(31826384, new TripEditModel()
+            {
+                TripTags = new List<string> { "my notes" },
+                TripType = ApiTripType.Business,
+            });
+        }
+
+        [TestMethod]
+        public void TestSetDriverOnTrip()
+        {
+            client.SetDriverOnTrip(31826384, 2);
+        }
+
+        [TestMethod]
+        public void TestGetGeofences()
+        {
+            IEnumerable<GeofenceModel> geofences = client.GetGeofences();
+            Assert.IsNotNull(geofences);
+        }
+
+        [TestMethod]
+        public void TestGetGeofenceDetails()
+        {
+            GeofenceModel geofence = client.GetGeofenceById(881);
+            Assert.IsNotNull(geofence);
+        }
+
+        [TestMethod]
+        public void CreateGeofence()
+        {
+            var coordinates = new List<GeofencePolygon.GeographicPosition>();
+            coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.44666232, Longitude = -122.16905397 });
+            coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.4536707, Longitude = -122.16150999 });
+            coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.44873066, Longitude = -122.15365648 });
+            coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.4416096, Longitude = -122.16112375 });
+
+            client.CreateGeofence(new GeofenceCreateModel()
+            {
+                Name = "My Palo Alto geofence",
+                Description = "Outside main offfice",
+                VehicleId = 33553,
+                GeofencePolygon = new GeofencePolygon(coordinates),
+                GeofenceType = ApiGeofenceType.Outside,
+                Schedules = null // if you want to add a specific schedule
+            });
         }
     }
 }

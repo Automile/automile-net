@@ -33,8 +33,10 @@ using Automile.Net;
 
 ```C#
 var client = new AutomileClient("username", "password", "api client identifier", "api secret");
-// or if you saved the token earlier
-var client = new AutomileClient(System.IO.File.ReadAllText(@"c:\<path>\token.json"));
+// if you want to save the token (recommended)
+client.SaveToken(@"token.json");
+// next time you can create the client from the saved token
+var client = new AutomileClient(@"token.json"));
 ```
 
 Hard :sweat_drops:
@@ -118,6 +120,20 @@ var fuelLevels = client.GetTripFuelLevel(31826384);
 ```
 **Note:** Only specific US makes and models are supporting fuel levels reporting
 
+#### Edit trip tags and category
+```C#
+client.EditTrip(31826384, new TripEditModel()
+            {
+                TripTags = new List<string> { "my notes" },
+                TripType = ApiTripType.Business
+            });
+```
+
+#### Set specific contact / driver for a trip
+```C#
+client.SetDriverOnTrip(31826384, 2);
+```
+
 ### Contact/s (Driver/s) Methods
 
 #### Get all contacts/drivers
@@ -132,4 +148,37 @@ var contactDetail =  client.GetContactById(2);
 ```C#
 var me =  client.GetMe();
 ```
+
+### Geofence Methods
+
+#### Get all geofences
+```C#
+var geofences =  client.GetGeofences();
+```
+
+#### Get details for a specific geofence
+```C#
+var geofenceDetails =  client.GetGeofenceById(881);
+```
+
+#### Create a geofence
+```C#
+var coordinates = new List<GeofencePolygon.GeographicPosition>();
+coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.44666232, Longitude = -122.16905397 });
+coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.4536707, Longitude = -122.16150999 });
+coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.44873066, Longitude = -122.15365648 });
+coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.4416096, Longitude = -122.16112375 });
+
+client.CreateGeofence(new GeofenceCreateModel()
+{
+    Name = "My Palo Alto geofence",
+    Description = "Outside main offfice",
+    VehicleId = 33553, // if you want to associate additional vehicles check CreateVehicleGeofence that adds an existing geofence to a vehicle
+    GeofencePolygon = new GeofencePolygon(coordinates),
+    GeofenceType = ApiGeofenceType.Outside, // supports inside, outside or both
+    Schedules = null // if you want to add a specific schedule
+});
+```
+
+![To see the created geofence visit the web or mobile app](//content.automile.com/sdk/CreateGeofence.png "The created geofence")
 

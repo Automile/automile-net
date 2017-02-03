@@ -87,5 +87,22 @@ namespace Automile.Net
             var response = client.DeleteAsync($"/v1/resourceowner/vehicles2/{vehicleId}").Result;
             response.EnsureSuccessStatusCode();
         }
+
+         /// <summary>
+         /// Creates a new vehicle and returns the model for the newly created vehicle
+         /// </summary>
+         /// <param name="model"></param>
+         /// <returns></returns>
+        public VehicleDetailModel CreateVehicle(Vehicle2CreateModel model)
+        {
+            string stringPayload = JsonConvert.SerializeObject(model);
+            var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
+            var response = client.PostAsync($"/v1/resourceowner/vehicles2", content).Result;
+            response.EnsureSuccessStatusCode();
+            var urlToCreatedVehicle = response.Headers.GetValues("Location").First();
+            var vehicleModelResponse = client.GetAsync(urlToCreatedVehicle).Result;
+            vehicleModelResponse.EnsureSuccessStatusCode();
+            return JsonConvert.DeserializeObject<VehicleDetailModel>(vehicleModelResponse.Content.ReadAsStringAsync().Result);
+        }
     }
 }

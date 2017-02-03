@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -25,23 +26,13 @@ namespace Automile.Net
 
         public string APIClientSecret { get; private set; }
        
-        /// <summary>
-        /// Create a client from a username, password, client identifier and client secret
-        /// </summary>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
-        /// <param name="apiClient"></param>
-        /// <param name="apiClientSecret"></param>
-        /// <param name="writeAccess"></param>
-        /// <param name="readAccess"></param>
-        public AutomileClient(string username, string password, string apiClient, string apiClientSecret, bool writeAccess = true, bool readAccess = true)
-        {
-            APIClient = apiClient;
-            APIClientSecret = apiClientSecret;
 
-            #if DEBUG
+        private AutomileClient()
+        {
+
+#if DEBUG
             ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
-            #endif
+#endif
 
             client = new HttpClient(new HttpClientHandler()
             {
@@ -53,6 +44,21 @@ namespace Automile.Net
             client.BaseAddress = new Uri(apiUrl);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Add("User-Agent", "Automile.Net SDK");
+        }
+
+        /// <summary>
+        /// Create a client from a username, password, client identifier and client secret
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <param name="apiClient"></param>
+        /// <param name="apiClientSecret"></param>
+        /// <param name="writeAccess"></param>
+        /// <param name="readAccess"></param>
+        public AutomileClient(string username, string password, string apiClient, string apiClientSecret, bool writeAccess = true, bool readAccess = true) : this()
+        {
+            APIClient = apiClient;
+            APIClientSecret = apiClientSecret;
             SetAPIClientAuthorizationHeader();
 
             List<string> scopes = new List<string>();
@@ -75,9 +81,23 @@ namespace Automile.Net
 
             TokenPair = JsonConvert.DeserializeObject<TokenPair>(response.Content.ReadAsStringAsync().Result);
             TokenPair.Expires = DateTime.UtcNow.AddSeconds(TokenPair.ExpiresIn);
+
+
+            Debug.WriteLine(JsonConvert.SerializeObject(TokenPair));
     
             SetBearerTokenAuthorizationHeader();
         }
+
+        /// <summary>
+        /// Create client from a saved bearer token
+        /// </summary>
+        /// <param name="token"></param>
+        public AutomileClient(TokenPair token) : this()
+        {
+            TokenPair = token;
+            SetBearerTokenAuthorizationHeader();
+        }
+
 
         private void SetAPIClientAuthorizationHeader()
         {

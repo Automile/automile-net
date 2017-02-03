@@ -49,7 +49,7 @@ That's shouldn't have been too hard :sweat_drops:
 * [Trip](#trip-methods)  
 * [Driver](#contact-methods)  
 * [Geofence](#geofence-methods)  
-* [Notification](#notification-methods)  
+* [Notification (also webhooks)](#notification-methods)  
 
 ### Vehicle Methods
 
@@ -262,6 +262,7 @@ client.EditNotification(190914, new TriggerEditModel()
     DestinationType = ApiDestinationType.Sms,
     DestinationData = "+14158320378"
 });
+```
 
 #### Mute a notification
 ```C#

@@ -43,6 +43,11 @@ Hard :sweat_drops:
 
 **Note:** Automile is currentley accepting username and password authentication for users belonging to clients you are creating. To access Automile all users please contact support@automile.com to discuss granting access.
 
+## Methods
+
+* [Vehicle](#vehicle-methods)  
+* [Trip](#trip-methods)  
+
 ### Vehicle Methods
 
 #### Get all vehicles
@@ -74,7 +79,7 @@ client.CheckInToVehicle(new VehicleCheckInModel()
 client.CheckOut();
 ```
 
-### Trip/s Methods
+### Trip Methods
 
 #### Get all trips for the last days
 ```C#
@@ -173,7 +178,9 @@ client.CreateGeofence(new GeofenceCreateModel()
 {
     Name = "My Palo Alto geofence",
     Description = "Outside main offfice",
-    VehicleId = 33553, // if you want to associate additional vehicles check CreateVehicleGeofence that adds an existing geofence to a vehicle
+    // if you want to associate additional vehicles check CreateVehicleGeofence 
+	// that adds an existing geofence to a vehicle
+    VehicleId = 33553,
     GeofencePolygon = new GeofencePolygon(coordinates),
     GeofenceType = ApiGeofenceType.Outside, // supports inside, outside or both
     Schedules = null // if you want to add a specific schedule

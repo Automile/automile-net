@@ -39,14 +39,16 @@ client.SaveToken(@"token.json");
 var client = new AutomileClient(@"token.json"));
 ```
 
-Hard :sweat_drops:
+That's shouldn't have been too hard :sweat_drops:
 
-**Note:** Automile is currentley accepting username and password authentication for users belonging to clients you are creating. To access Automile all users please contact support@automile.com to discuss granting access.
+**Note:** Automile is currentley accepting username and password authentication for users belonging to private clients you are creating.
 
 ## Methods
 
 * [Vehicle](#vehicle-methods)  
 * [Trip](#trip-methods)  
+* [Driver](#contact-methods)  
+* [Geofence](#geofence-methods)  
 
 ### Vehicle Methods
 
@@ -139,7 +141,7 @@ client.EditTrip(31826384, new TripEditModel()
 client.SetDriverOnTrip(31826384, 2);
 ```
 
-### Contact/s (Driver/s) Methods
+### Contact Methods
 
 #### Get all contacts/drivers
 ```C#

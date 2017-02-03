@@ -56,6 +56,22 @@ var vehicleDetails =  client.GetVehicleById(33553);
 ```C#
 var vehicleStatus =  client.GetStatusForVehicles();
 ```
+#### Check-in driver to vehicle
+```C#
+client.CheckInToVehicle(new VehicleCheckInModel()
+            {
+                ContactId = 2,
+                VehicleId = 33553,
+                DefaultTripType = ApiTripType.Auto,
+                CheckOutAtUtc = DateTime.UtcNow.AddDays(7)
+            });
+```
+
+#### Check-out yourself
+```C#
+client.CheckOut();
+```
+
 ### Trip/s Methods
 
 #### Get all trips for the last days
@@ -84,4 +100,25 @@ var tripDetails =  client.GetTripDetails(31826384);
 ```C#
 var tripAdvanced =  client.GetTripDetailsAdvanced(31826384);
 ```
+#### Get all RPM values during a trip
+```C#
+var rpmValues =  client.GetTripRPM(31826384);
+```
+#### Get all ambient temperature values during a trip
+```C#
+var ambientTemperatures =  client.GetTripAmbientTemperature(31826384);
+```
+#### Get all engine coolant temperature values during a trip
+```C#
+var coolantTemperatures =  client.GetTripEngineCoolantTemperature(31826384);
+```
+#### Get all fuel values during a trip
+```C#
+var fuelLevels =  client.GetTripFuelLevel(31826384);
+```
+**Note:** Only specific US makes and models are supporting fuel levels reporting
+
+
+
+
 

@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace Automile.Net
 {
+    /// <summary>
+    /// The core client to communicate with the Automile API
+    /// </summary>
     public partial class AutomileClient
     {
         const string apiUrl = "https://api.automile.com";
@@ -22,6 +25,15 @@ namespace Automile.Net
 
         public string APIClientSecret { get; private set; }
        
+        /// <summary>
+        /// Create a client from a username, password, client identifier and client secret
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <param name="apiClient"></param>
+        /// <param name="apiClientSecret"></param>
+        /// <param name="writeAccess"></param>
+        /// <param name="readAccess"></param>
         public AutomileClient(string username, string password, string apiClient, string apiClientSecret, bool writeAccess = true, bool readAccess = true)
         {
             APIClient = apiClient;
@@ -63,8 +75,7 @@ namespace Automile.Net
 
             TokenPair = JsonConvert.DeserializeObject<TokenPair>(response.Content.ReadAsStringAsync().Result);
             TokenPair.Expires = DateTime.UtcNow.AddSeconds(TokenPair.ExpiresIn);
-          
-
+    
             SetBearerTokenAuthorizationHeader();
         }
 
@@ -80,7 +91,7 @@ namespace Automile.Net
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenPair.AccessToken);
         }
 
-        public void RefreshAccessToken()
+        private void RefreshAccessToken()
         {
             SetAPIClientAuthorizationHeader();
 

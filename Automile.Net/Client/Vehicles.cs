@@ -25,7 +25,7 @@ namespace Automile.Net
         /// Get details about a specific vehicle
         /// </summary>
         /// <param name="vehicleId"></param>
-        /// <returns></returns>
+        /// <returns>The detailed model for the vehicle</returns>
         public Vehicle2DetailModel GetVehicleById(int vehicleId)
         {
             var response = client.GetAsync($"/v1/resourceowner/vehicles2/{vehicleId}").Result;
@@ -36,7 +36,7 @@ namespace Automile.Net
         /// <summary>
         ///  Get position and status of all vehicles that the user has access to
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A list of status models for each vehicle</returns>
         public IEnumerable<VehicleStatusModel> GetStatusForVehicles()
         {
             var response = client.GetAsync($"/v1/resourceowner/vehicles2/status").Result;
@@ -78,7 +78,6 @@ namespace Automile.Net
             response.EnsureSuccessStatusCode();
         }
 
-
         /// <summary>
         /// Delete a vehicle, this requires any given device that has been associated to the vehicle to first be moved.
         /// </summary>
@@ -88,6 +87,5 @@ namespace Automile.Net
             var response = client.DeleteAsync($"/v1/resourceowner/vehicles2/{vehicleId}").Result;
             response.EnsureSuccessStatusCode();
         }
-
     }
 }

@@ -180,5 +180,5 @@ client.CreateGeofence(new GeofenceCreateModel()
 });
 ```
 
-![To see the created geofence visit the web or mobile app](//content.automile.com/sdk/CreateGeofence.png "The created geofence")
+![To see the created geofence visit the web or mobile app](https://content.automile.com/sdk/CreateGeofence.png "The created geofence")
 

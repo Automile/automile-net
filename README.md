@@ -7,3 +7,7 @@
 
 - .NET version 4.5 or newer
 - Automile subscription or developer account, starting from [$5.90 per month](https://automile.com)
+
+## Dependencies
+
+- [Newtonsoft.Json](http://www.newtonsoft.com/json)

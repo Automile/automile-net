@@ -49,8 +49,12 @@ That's shouldn't have been too hard :sweat_drops:
 * [Trip](#trip-methods)  
 * [Driver](#contact-methods)  
 * [Geofence](#geofence-methods)  
+* [Notification](#notification-methods)  
 
 ### Vehicle Methods
+
+All these methods are used to retrieve one or multiple vehicles and their current locations.
+You can also create, edit and delete vehicles.
 
 #### Get all vehicles
 ```C#
@@ -143,6 +147,9 @@ client.SetDriverOnTrip(31826384, 2);
 
 ### Contact Methods
 
+All these methods are used to retrieve one or multiple contacts (drivers). Contacts is are considered
+a driver if they are checked-in into a vehicle.
+
 #### Get all contacts/drivers
 ```C#
 var contacts =  client.GetContacts();
@@ -168,7 +175,7 @@ var geofences =  client.GetGeofences();
 var geofenceDetails =  client.GetGeofenceById(881);
 ```
 
-#### Create a geofence
+#### Create a geofence and associating it with the first vehicle
 ```C#
 var coordinates = new List<GeofencePolygon.GeographicPosition>();
 coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.44666232, Longitude = -122.16905397 });
@@ -190,4 +197,85 @@ client.CreateGeofence(new GeofenceCreateModel()
 ```
 
 ![To see the created geofence visit the web or mobile app](https://content.automile.com/sdk/CreateGeofence.png "The created geofence")
+
+#### Edit a geofence
+```C#
+var coordinates = new List<GeofencePolygon.GeographicPosition>();
+coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.44666232, Longitude = -122.16905397 });
+coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.4536707, Longitude = -122.16150999 });
+coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.44873066, Longitude = -122.15365648 });
+coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.4416096, Longitude = -122.16112375 });
+
+client.EditGeofence(3319, new GeofenceEditModel()
+{
+    Name = "Another name",
+    Description = "Outside main offfice",
+    // if you want to associate additional vehicles check CreateVehicleGeofence 
+	// that adds an existing geofence to a vehicle
+    GeofencePolygon = new GeofencePolygon(coordinates),
+    GeofenceType = ApiGeofenceType.Outside, // supports inside, outside or both
+    Schedules = null // if you want to add a specific schedule
+});
+```
+
+#### Delete a geofence
+```C#
+client.DeleteGeofence(881);
+```
+
+### Notification Methods
+
+#### Get all notifications (earlier called triggers)
+```C#
+var notifications =  client.GetNotifications();
+```
+
+#### Get details for a specific notification (earlier called triggers)
+```C#
+var notificationDetails =  client.GetNotificationById(25173);
+```
+
+#### Create a notification
+```C#
+var newNotification = client.CreateNotification(new TriggerCreateModel()
+{
+    IMEIConfigId = 28288, // What is this ?
+	// IMEIConfigId is the device identifier connected to the vehicle, you
+	// can get this id from the vehicle (GetVehicleById method)
+    TriggerType = ApiTriggerType.Accident,
+    DestinationType = ApiDestinationType.Sms,
+    DestinationData = "+14158320378"
+});
+```
+
+**Why  using a different identifier for notifications ?** The reasons is that there are two 
+objects, the vehicle contains all properties for a vehicle while a device (called IMEIConfig)
+is connected to the vehicle. If you move the device to another vehicle the notifications
+are still valid.
+
+#### Edit a notification
+```C#
+client.EditNotification(190914, new TriggerEditModel()
+{
+    IMEIConfigId = 28288,
+    TriggerType = ApiTriggerType.Accident,
+    DestinationType = ApiDestinationType.Sms,
+    DestinationData = "+14158320378"
+});
+
+#### Mute a notification
+```C#
+client.MuteNotification(190913,60*60); // mutes for 1 hour
+```
+
+#### Unmute a notification
+```C#
+client.MuteNotification(190913);
+```
+
+#### Delete a notification
+```C#
+client.DeleteNotification(190913);
+```
+
 

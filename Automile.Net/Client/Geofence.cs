@@ -42,12 +42,36 @@ namespace Automile.Net
         {
             string stringPayload = JsonConvert.SerializeObject(model);
             var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
-            var response = client.PostAsync($"/v1/resourceowner/geofence", content).Result;
+            var response = client.PostAsync("/v1/resourceowner/geofence", content).Result;
             response.EnsureSuccessStatusCode();
             var urlToCreatedGeofence = response.Headers.GetValues("Location").First();
             var geofenceModelResponse = client.GetAsync(urlToCreatedGeofence).Result;
             geofenceModelResponse.EnsureSuccessStatusCode();
             return JsonConvert.DeserializeObject<GeofenceModel>(geofenceModelResponse.Content.ReadAsStringAsync().Result);
         }
+
+        /// <summary>
+        /// Edit geofence
+        /// </summary>
+        /// <param name="geofenceId"></param>
+        /// <param name="model"></param>
+        public void EditGeofence(int geofenceId, GeofenceEditModel model)
+        {
+            string stringPayload = JsonConvert.SerializeObject(model);
+            var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
+            var response = client.PutAsync($"/v1/resourceowner/geofence/{geofenceId}", content).Result;
+            response.EnsureSuccessStatusCode();
+        }
+
+        /// <summary>
+        /// Deletes the geofence
+        /// </summary>
+        /// <param name="geofenceId"></param>
+        public void DeleteGeofence(int geofenceId)
+        {
+            var response = client.DeleteAsync($"/v1/resourceowner/geofence/{geofenceId}").Result;
+            response.EnsureSuccessStatusCode();
+        }
+
     }
 }

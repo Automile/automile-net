@@ -10,7 +10,7 @@ namespace Automile.Net.Tests
     public class UnitTest1
     {
         private AutomileClient client;
-    
+
         [TestInitialize]
         public void Initialize()
         {
@@ -192,5 +192,82 @@ namespace Automile.Net.Tests
                 Schedules = null // if you want to add a specific schedule
             });
         }
+
+        [TestMethod]
+        public void EditGeofence()
+        {
+            var coordinates = new List<GeofencePolygon.GeographicPosition>();
+            coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.44666232, Longitude = -122.16905397 });
+            coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.4536707, Longitude = -122.16150999 });
+            coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.44873066, Longitude = -122.15365648 });
+            coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.4416096, Longitude = -122.16112375 });
+
+            client.EditGeofence(3319, new GeofenceEditModel()
+            {
+                Name = "My Palo Alto geofence",
+                Description = "Outside main offfice",
+                GeofencePolygon = new GeofencePolygon(coordinates),
+                GeofenceType = ApiGeofenceType.Outside,
+                Schedules = null // if you want to add a specific schedule
+            });
+        }
+
+        [TestMethod]
+        public void TestGetNotifications()
+        {
+            IEnumerable<TriggerModel> notifications = client.GetNotifications();
+            Assert.IsNotNull(notifications);
+        }
+
+        [TestMethod]
+        public void TestGetNotificationDetails()
+        {
+            var notification = client.GetNotificationById(25173);
+            Assert.IsNotNull(notification);
+        }
+
+        [TestMethod]
+        public void TestCreateNotification()
+        {
+            var newNotification = client.CreateNotification(new TriggerCreateModel()
+            {
+                IMEIConfigId = 28288,
+                TriggerType = ApiTriggerType.Accident,
+                DestinationType = ApiDestinationType.Sms,
+                DestinationData = "+14158320378"
+            });
+
+            Assert.AreEqual("+14158320378", newNotification.DestinationData);
+        }
+
+        [TestMethod]
+        public void TestEditNotification()
+        {
+            client.EditNotification(190914, new TriggerEditModel()
+            {
+                IMEIConfigId = 28288,
+                TriggerType = ApiTriggerType.Accident,
+                DestinationType = ApiDestinationType.Sms,
+                DestinationData = "+14158320378"
+            });
+        }
+
+        [TestMethod]
+        public void TestDeleteNotification()
+        {
+            client.DeleteNotification(190914);
+        }
+
+        [TestMethod]
+        public void TestMuteNotification()
+        {
+            client.MuteNotification(190914, 60*60);
+        }
+
+        [TestMethod]
+        public void TestUnmuteNotification()
+        {
+            client.UnmuteNotification(190914);
+        }
     }
-}
+    }

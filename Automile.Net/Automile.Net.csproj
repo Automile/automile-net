@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{124B7E38-6425-48F3-8042-62AB15BA5F99}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Automile.Net</RootNamespace>
+    <AssemblyName>Automile.Net</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Client\Vehicles.cs" />
+    <Compile Include="Client\HttpClient.cs" />
+    <Compile Include="Client\TokenPair.cs" />
+    <Compile Include="Models\AddressModel.cs" />
+    <Compile Include="Models\AmbientAirTemperatureModel.cs" />
+    <Compile Include="Models\APIAuthorizationModel.cs" />
+    <Compile Include="Models\APIClientModel.cs" />
+    <Compile Include="Models\ByteArrayConverter .cs" />
+    <Compile Include="Models\ChangeUserNameModel.cs" />
+    <Compile Include="Models\CompanyContactCreateModel.cs" />
+    <Compile Include="Models\CompanyContactDetailModel.cs" />
+    <Compile Include="Models\CompanyContactEditModel.cs" />
+    <Compile Include="Models\CompanyCreateModel.cs" />
+    <Compile Include="Models\CompanyDetailModel.cs" />
+    <Compile Include="Models\CompanyEditModel.cs" />
+    <Compile Include="Models\CompanyInfoModel.cs" />
+    <Compile Include="Models\CompanyModel.cs" />
+    <Compile Include="Models\CompanyScopesModel.cs" />
+    <Compile Include="Models\CompanyVehicleCreateModel.cs" />
+    <Compile Include="Models\CompanyVehicleEditModel.cs" />
+    <Compile Include="Models\CompanyVehicleModel.cs" />
+    <Compile Include="Models\Contact2CreateModel.cs" />
+    <Compile Include="Models\Contact2DetailModel.cs" />
+    <Compile Include="Models\Contact2EditModel.cs" />
+    <Compile Include="Models\Contact2Model.cs" />
+    <Compile Include="Models\ContactCreateModel.cs" />
+    <Compile Include="Models\ContactDetailModel.cs" />
+    <Compile Include="Models\ContactEditModel.cs" />
+    <Compile Include="Models\ContactMeModel.cs" />
+    <Compile Include="Models\ContactModel.cs" />
+    <Compile Include="Models\ContactVehicleCreateModel.cs" />
+    <Compile Include="Models\ContactVehicleDetailModel.cs.cs" />
+    <Compile Include="Models\ContactVehicleEditModel.cs" />
+    <Compile Include="Models\ContractsModel.cs" />
+    <Compile Include="Models\CreateOrderModel.cs" />
+    <Compile Include="Models\CreatePINModel.cs" />
+    <Compile Include="Models\CustomCategoryModel.cs" />
+    <Compile Include="Models\CustomUserCreateModel.cs" />
+    <Compile Include="Models\CustomUserCreateWithoutPasswordModel.cs" />
+    <Compile Include="Models\DeviceRegisteredModel.cs" />
+    <Compile Include="Models\DistanceCodesClearedModel.cs" />
+    <Compile Include="Models\DistanceMILOnModel.cs" />
+    <Compile Include="Models\EmailExpenseReportModel.cs" />
+    <Compile Include="Models\EmailExpenseReportsModel.cs" />
+    <Compile Include="Models\EmailTripReportModel.cs" />
+    <Compile Include="Models\EngineCoolantTemperatureModel.cs" />
+    <Compile Include="Models\ExpenseReportCreateModel.cs" />
+    <Compile Include="Models\ExpenseReportEditModel.cs" />
+    <Compile Include="Models\ExpenseReportModel.cs" />
+    <Compile Include="Models\ExpenseReportRowContentCreateModel.cs" />
+    <Compile Include="Models\ExpenseReportRowContentEditModel.cs" />
+    <Compile Include="Models\ExpenseReportRowContentModel.cs" />
+    <Compile Include="Models\ExpenseReportRowCreateModel.cs" />
+    <Compile Include="Models\ExpenseReportRowEditModel.cs" />
+    <Compile Include="Models\ExpenseReportRowModel.cs" />
+    <Compile Include="Models\FuelLevelInputModel.cs" />
+    <Compile Include="Models\GeofenceCreateModel.cs" />
+    <Compile Include="Models\GeofenceEditModel.cs" />
+    <Compile Include="Models\GeofenceModel.cs" />
+    <Compile Include="Models\GeofencePolygon.cs" />
+    <Compile Include="Models\IMEIConfigCreateModel.cs" />
+    <Compile Include="Models\IMEIConfigDetailModel.cs" />
+    <Compile Include="Models\IMEIConfigEditModel.cs" />
+    <Compile Include="Models\ImeiConfigModel.cs" />
+    <Compile Include="Models\IMEIDeviceType.cs" />
+    <Compile Include="Models\IMEIEventDTCModel.cs" />
+    <Compile Include="Models\IMEIEventMILModel.cs" />
+    <Compile Include="Models\IMEIEventModel.cs" />
+    <Compile Include="Models\IMEIEventModelBase.cs" />
+    <Compile Include="Models\IMEIEventStatusModel.cs" />
+    <Compile Include="Models\LeadActivityCreateModel.cs" />
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\MonitorStatusModel.cs" />
+    <Compile Include="Models\MovePushTriggers.cs" />
+    <Compile Include="Models\PIDModel.cs" />
+    <Compile Include="Models\PlaceCreateModel.cs" />
+    <Compile Include="Models\PlaceEditModel.cs" />
+    <Compile Include="Models\PlaceModel.cs" />
+    <Compile Include="Models\PositionPointModel.cs" />
+    <Compile Include="Models\ProOrderModel.cs" />
+    <Compile Include="Models\ResetPasswordUserModel.cs" />
+    <Compile Include="Models\ReverseGeocodingResult.cs" />
+    <Compile Include="Models\RPMModel.cs" />
+    <Compile Include="Models\SlackPayloadModel.cs" />
+    <Compile Include="Models\TaskModel.cs" />
+    <Compile Include="Models\TemperatureModel.cs" />
+    <Compile Include="Models\TransportstyrelsenInfoModel.cs" />
+    <Compile Include="Models\TriggerCreateModel.cs" />
+    <Compile Include="Models\TriggerDetailModel.cs" />
+    <Compile Include="Models\TriggerEditModel.cs" />
+    <Compile Include="Models\TriggerEditMutedUntilModel.cs" />
+    <Compile Include="Models\TriggerMessageHistoryDetailModel.cs" />
+    <Compile Include="Models\TriggerModel.cs" />
+    <Compile Include="Models\TripAddNoteModel.cs" />
+    <Compile Include="Models\TripDataAccelerometerEventModel.cs" />
+    <Compile Include="Models\TripDataAccelerometerModel.cs" />
+    <Compile Include="Models\TripDetailModel.cs" />
+    <Compile Include="Models\TripEditModel.cs" />
+    <Compile Include="Models\TripGeoModel.cs" />
+    <Compile Include="Models\TripModel.cs" />
+    <Compile Include="Models\TripStartEndGeoModel.cs" />
+    <Compile Include="Models\TripSummaryReportModel.cs" />
+    <Compile Include="Models\TripSynchronized.cs" />
+    <Compile Include="Models\UserCreatedPasswordModel.cs" />
+    <Compile Include="Models\UserCreateModel.cs" />
+    <Compile Include="Models\UserDeviceCreateModel.cs" />
+    <Compile Include="Models\UserDeviceEditModel.cs" />
+    <Compile Include="Models\UserDeviceModel.cs" />
+    <Compile Include="Models\UserExistingPasswordModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\UsernamesPhoneNumberModel.cs" />
+    <Compile Include="Models\UsernameTakenModel.cs" />
+    <Compile Include="Models\UserPhoneNumberModel.cs" />
+    <Compile Include="Models\ValidatePinModel.cs" />
+    <Compile Include="Models\Vehicle2CreateModel.cs" />
+    <Compile Include="Models\Vehicle2DetailModel.cs" />
+    <Compile Include="Models\Vehicle2EditModel.cs" />
+    <Compile Include="Models\Vehicle2Model.cs" />
+    <Compile Include="Models\VehicleCheckInModel.cs" />
+    <Compile Include="Models\VehicleCreateModel.cs" />
+    <Compile Include="Models\VehicleDefectTypeModel.cs" />
+    <Compile Include="Models\VehicleDetailModel.cs" />
+    <Compile Include="Models\VehicleEditModel.cs" />
+    <Compile Include="Models\VehicleGeofenceCreateModel.cs" />
+    <Compile Include="Models\VehicleGeofenceEditModel.cs" />
+    <Compile Include="Models\VehicleGeofenceModel.cs" />
+    <Compile Include="Models\VehicleInformationType.cs" />
+    <Compile Include="Models\VehicleInspectionCreateModels.cs" />
+    <Compile Include="Models\VehicleInspectionEditModel.cs" />
+    <Compile Include="Models\VehicleInspectionExportModel.cs" />
+    <Compile Include="Models\VehicleInspectionModels.cs" />
+    <Compile Include="Models\VehicleMakesModel.cs" />
+    <Compile Include="Models\VehicleMetadataModel.cs" />
+    <Compile Include="Models\VehicleModel.cs" />
+    <Compile Include="Models\VehicleSpeedModel.cs" />
+    <Compile Include="Models\VehiclesSummaryModel.cs" />
+    <Compile Include="Models\VehicleStatusModel.cs" />
+    <Compile Include="Models\VehicleSummaryModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Types\ApiApplicationType.cs" />
+    <Compile Include="Types\ApiCategoryType.cs" />
+    <Compile Include="Types\ApiContentType.cs" />
+    <Compile Include="Types\ApiDeliveryType.cs" />
+    <Compile Include="Types\ApiDestinationType.cs" />
+    <Compile Include="Types\ApiDeviceType.cs" />
+    <Compile Include="Types\ApiGeofenceType.cs" />
+    <Compile Include="Types\ApiImageType.cs" />
+    <Compile Include="Types\ApiIMEIDeviceType.cs" />
+    <Compile Include="Types\ApiLeadActionType.cs" />
+    <Compile Include="Types\ApiMainFuelType.cs" />
+    <Compile Include="Types\ApiMapType.cs" />
+    <Compile Include="Types\ApiPrivacyPolicyType.cs" />
+    <Compile Include="Types\ApiResetPasswordType.cs" />
+    <Compile Include="Types\ApiRoleTypeInCompany.cs" />
+    <Compile Include="Types\ApiTaskStatusType.cs" />
+    <Compile Include="Types\ApiTaskType.cs" />
+    <Compile Include="Types\ApiTransmissionType.cs" />
+    <Compile Include="Types\ApiTriggerType.cs" />
+    <Compile Include="Types\ApiTripType.cs" />
+    <Compile Include="Types\ApiUnitType.cs" />
+    <Compile Include="Types\ApiUserDeviceCertType.cs" />
+    <Compile Include="Types\ApiVehicleMetadataType.cs" />
+    <Compile Include="Types\ApiVehicleOwnerType.cs" />
+    <Compile Include="Types\FuelType.cs" />
+    <Compile Include="Types\OwnerType.cs" />
+    <Compile Include="Types\TransmissionType.cs" />
+    <Compile Include="Types\TripAccelerometerEventType.cs" />
+    <Compile Include="Types\TripType.cs" />
+    <Compile Include="Types\VehicleInspectionTypes.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

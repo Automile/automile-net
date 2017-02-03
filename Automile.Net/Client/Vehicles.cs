@@ -65,7 +65,7 @@ namespace Automile.Net
         {
             string stringPayload = JsonConvert.SerializeObject(model);
             var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
-            var response = client.PutAsync($"/v1/resourceowner/vehicles2/checkin", content).Result;
+            var response = client.PostAsync($"/v1/resourceowner/vehicles2/checkin", content).Result;
             response.EnsureSuccessStatusCode();
         }
 

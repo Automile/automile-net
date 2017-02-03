@@ -69,5 +69,61 @@ namespace Automile.Net.Tests
             IEnumerable<VehicleSpeedModel> speed = client.GetTripSpeed(31826384);
             Assert.IsNotNull(speed);
         }
+
+        [TestMethod]
+        public void TestGetTripRPM()
+        {
+            IEnumerable<RPMModel> rpm = client.GetTripRPM(31826384);
+            Assert.IsNotNull(rpm);
+        }
+
+        [TestMethod]
+        public void TestGetTripAmbientTemperature()
+        {
+            IEnumerable<AmbientAirTemperatureModel> temp = client.GetTripAmbientTemperature(31826384);
+            Assert.IsNotNull(temp);
+        }
+
+        [TestMethod]
+        public void TestGetFuel()
+        {
+            IEnumerable<FuelLevelInputModel> fuel = client.GetTripFuelLevel(31826384);
+            Assert.IsNotNull(fuel);
+        }
+
+        [TestMethod]
+        public void TestGetEngineCoolantTemperature()
+        {
+            IEnumerable<EngineCoolantTemperatureModel> temp = client.GetTripEngineCoolantTemperature(31826384);
+            Assert.IsNotNull(temp);
+        }
+
+        [TestMethod]
+        public void TestGetRawPIDs()
+        {
+            IEnumerable<PIDModel> pidData = client.GetTripPIDRaw(31826384, 70);
+            Assert.IsNotNull(pidData);
+        }
+
+        [TestMethod]
+        public void TestGetTripLatitudeLongitude()
+        {
+            IEnumerable<TripGeoModel> geo = client.GeoTripLatitudeLongitude(31826384, 1);
+            Assert.IsNotNull(geo);
+        }
+
+        [TestMethod]
+        public void TestGetTripDetails()
+        {
+            TripConcatenation data = client.GetTripDetails(31826384);
+            Assert.IsNotNull(data);
+        }
+
+        [TestMethod]
+        public void TestGetTripDetailsAdvanced()
+        {
+            TripConcatenation data = client.GetTripDetailsAdvanced(31826384);
+            Assert.IsNotNull(data);
+        }
     }
 }

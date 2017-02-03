@@ -140,6 +140,7 @@
     <Compile Include="Models\TriggerMessageHistoryDetailModel.cs" />
     <Compile Include="Models\TriggerModel.cs" />
     <Compile Include="Models\TripAddNoteModel.cs" />
+    <Compile Include="Models\TripConcatenation.cs" />
     <Compile Include="Models\TripDataAccelerometerEventModel.cs" />
     <Compile Include="Models\TripDataAccelerometerModel.cs" />
     <Compile Include="Models\TripDetailModel.cs" />
@@ -213,6 +214,7 @@
     <Compile Include="Types\OwnerType.cs" />
     <Compile Include="Types\TransmissionType.cs" />
     <Compile Include="Types\TripAccelerometerEventType.cs" />
+    <Compile Include="Types\TripDrivingEventType.cs" />
     <Compile Include="Types\TripType.cs" />
     <Compile Include="Types\VehicleInspectionTypes.cs" />
   </ItemGroup>

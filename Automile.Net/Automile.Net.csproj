@@ -132,6 +132,7 @@
     <Compile Include="Models\ResetPasswordUserModel.cs" />
     <Compile Include="Models\ReverseGeocodingResult.cs" />
     <Compile Include="Models\RPMModel.cs" />
+    <Compile Include="Models\SignUpModel.cs" />
     <Compile Include="Models\SlackPayloadModel.cs" />
     <Compile Include="Models\TaskModel.cs" />
     <Compile Include="Models\TemperatureModel.cs" />

@@ -18,6 +18,8 @@ namespace Automile.Net
     {
         const string apiUrl = "https://api.automile.com";
 
+       // const string apiUrl = "https://localhost:44302/";
+
         private HttpClient client;
 
         public TokenPair TokenPair { get; private set; }
@@ -26,6 +28,34 @@ namespace Automile.Net
 
         public string APIClientSecret { get; private set; }
        
+
+        public static SignUpResponseModel SignUp(string email)
+        {
+            HttpClient signupClient = new HttpClient();
+#if DEBUG
+            ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
+#endif
+
+            signupClient = new HttpClient(new HttpClientHandler()
+            {
+                AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip,
+                AllowAutoRedirect = true,
+                UseDefaultCredentials = false
+            });
+            signupClient.Timeout = TimeSpan.FromSeconds(15);
+            signupClient.BaseAddress = new Uri(apiUrl);
+            signupClient.DefaultRequestHeaders.Accept.Clear();
+            signupClient.DefaultRequestHeaders.Add("User-Agent", "Automile.Net SDK");
+
+            SignUpRequestModel requestModel = new SignUpRequestModel();
+            requestModel.Email = email;
+            
+            string stringPayload = JsonConvert.SerializeObject(requestModel);
+            var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
+            var response = signupClient.PostAsync($"/signup", content).Result;
+            response.EnsureSuccessStatusCode();
+            return JsonConvert.DeserializeObject<SignUpResponseModel>(response.Content.ReadAsStringAsync().Result);
+        }
 
         private AutomileClient()
         {
@@ -107,6 +137,14 @@ namespace Automile.Net
             string tokenJson = System.IO.File.ReadAllText(pathToTokenFile);
             TokenPair = JsonConvert.DeserializeObject<TokenPair>(tokenJson);
             SetBearerTokenAuthorizationHeader();
+        }
+
+        /// <summary>
+        /// Create client from a signup response
+        /// </summary>
+        /// <param name="signUpResponse"></param>
+        public AutomileClient(SignUpResponseModel signUpResponse) : this(signUpResponse.Username, signUpResponse.Password, signUpResponse.APIClientIdentifier, signUpResponse.APIClientSecret)
+        {
         }
 
         /// <summary>

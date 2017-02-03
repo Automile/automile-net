@@ -18,6 +18,14 @@ namespace Automile.Net.Tests
         }
 
         [TestMethod]
+        public void TestSignup()
+        {
+           var saveThisResponse = AutomileClient.SignUp("hello.developer5@automile.com");
+           var myClient = new AutomileClient(saveThisResponse);
+           Assert.IsNotNull(myClient);
+        }
+
+        [TestMethod]
         public void TestGetVehicles()
         {
             IEnumerable<Vehicle2Model> vehicles = client.GetVehicles();

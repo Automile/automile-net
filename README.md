@@ -32,9 +32,20 @@ using Automile.Net;
 ```
 
 ```C#
+// Have no account ? Well that's easy - you can signup directly from 
+// this call and be given access to a demo vehicle
+var savedThis = AutomileClient.SignUp("your@email.com");
+// remember to savethis property - it contains your login information
+
+// create the client directly from your signup
+var client = new AutomileClient(savedThis);
+
+// or
 var client = new AutomileClient("username", "password", "api client identifier", "api secret");
+
 // if you want to save the token (recommended)
 client.SaveToken(@"token.json");
+
 // next time you can create the client from the saved token
 var client = new AutomileClient(@"token.json"));
 ```
@@ -296,7 +307,7 @@ client.MuteNotification(190913,60*60); // mutes for 1 hour
 
 #### Unmute a notification
 ```C#
-client.MuteNotification(190913);
+client.UnmuteNotification(190913);
 ```
 
 #### Delete a notification

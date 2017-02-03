@@ -125,5 +125,26 @@ namespace Automile.Net.Tests
             TripConcatenation data = client.GetTripDetailsAdvanced(31826384);
             Assert.IsNotNull(data);
         }
+
+        [TestMethod]
+        public void TestGetContacts()
+        {
+            IEnumerable<Contact2Model> drivers = client.GetContacts();
+            Assert.IsNotNull(drivers);
+        }
+
+        [TestMethod]
+        public void TestGetContactById()
+        {
+            Contact2DetailModel driver = client.GetContactById(2);
+            Assert.IsNotNull(driver);
+        }
+
+        [TestMethod]
+        public void TestGetMe()
+        {
+            Contact2DetailModel driver = client.GetMe();
+            Assert.IsNotNull(driver);
+        }
     }
 }

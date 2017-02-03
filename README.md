@@ -62,8 +62,8 @@ client.CheckInToVehicle(new VehicleCheckInModel()
             {
                 ContactId = 2,
                 VehicleId = 33553,
-                DefaultTripType = ApiTripType.Auto,
-                CheckOutAtUtc = DateTime.UtcNow.AddDays(7)
+                DefaultTripType = ApiTripType.Auto, //Use the users schedule, place or other automation rules
+                CheckOutAtUtc = DateTime.UtcNow.AddDays(7) //Use to schedule future auto-checkout, leave empty for permanent check-in
             });
 ```
 
@@ -114,11 +114,22 @@ var coolantTemperatures =  client.GetTripEngineCoolantTemperature(31826384);
 ```
 #### Get all fuel values during a trip
 ```C#
-var fuelLevels =  client.GetTripFuelLevel(31826384);
+var fuelLevels = client.GetTripFuelLevel(31826384);
 ```
 **Note:** Only specific US makes and models are supporting fuel levels reporting
 
+### Contact/s (Driver/s) Methods
 
-
-
+#### Get all contacts/drivers
+```C#
+var contacts =  client.GetContacts();
+```
+#### Get contact details by it's id
+```C#
+var contactDetail =  client.GetContactById(2);
+```
+#### Get details around your self
+```C#
+var me =  client.GetMe();
+```
 

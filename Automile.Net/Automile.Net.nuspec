@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Automile.Net</id>
+    <version>0.1.0</version>
+    <title>Automile.Net API for fleet-management</title>
+    <authors>Automile Inc.</authors>
+    <owners>Automile</owners>
+    <summary>A library to help .NET developers easily access the Automile REST API</summary>
+    <description>Automile offers a simple, smart, cutting-edge telematics solution for businesses to track and manage their business vehicles. This library helps .NET developers to easily access the Automile REST API. Targets .NET 4.5.</description>
+    <licenseUrl>https://github.com/Automile/automile-net/blob/master/Automile.Net/LICENCE.txt</licenseUrl>
+    <projectUrl>https://github.com/Automile/automile-net</projectUrl>
+    <iconUrl>
+      http://content.automile.com/automile_logo_symbol_64x64.png
+    </iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <releaseNotes>
+      * 0.1.0 - Initial release supporting vehicles, trips, geofences, places, notifications and devices
+    </releaseNotes>
+    <copyright>Copyright 2017 Automile Inc, 291 Alma Street, Palo Alto, California 943 01, United States</copyright>
+    <tags>tracking telematics gps fleet-management fleet iot automile vehicle</tags>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Net.Http"  />
+      <frameworkAssembly assemblyName="System.ComponentModel.DataAnnotations"  />
+    </frameworkAssemblies>
+    <dependencies>
+      <dependency id="Newtonsoft.Json" version="8.0.3" />
+    </dependencies>
+  </metadata>
+</package>

@@ -18,7 +18,7 @@ namespace Automile.Net
         public IEnumerable<TriggerModel> GetNotifications()
         {
             var response = client.GetAsync($"/v1/resourceowner/triggers").Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<List<TriggerModel>>(response.Content.ReadAsStringAsync().Result);
         }
 
@@ -30,7 +30,7 @@ namespace Automile.Net
         public TriggerDetailModel GetNotificationById(int notificationId)
         {
             var response = client.GetAsync($"/v1/resourceowner/triggers/{notificationId}").Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<TriggerDetailModel>(response.Content.ReadAsStringAsync().Result);
         }
 
@@ -44,10 +44,10 @@ namespace Automile.Net
             string stringPayload = JsonConvert.SerializeObject(model);
             var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
             var response = client.PostAsync("/v1/resourceowner/triggers", content).Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             var urlToCreatedNotification = response.Headers.GetValues("Location").First();
             var notificationModelResponse = client.GetAsync(urlToCreatedNotification).Result;
-            notificationModelResponse.EnsureSuccessStatusCode();
+            notificationModelResponse.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<TriggerModel>(notificationModelResponse.Content.ReadAsStringAsync().Result);
         }
 
@@ -58,7 +58,7 @@ namespace Automile.Net
         public void DeleteNotification(int notificationId)
         {
             var response = client.DeleteAsync($"/v1/resourceowner/triggers/{notificationId}").Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace Automile.Net
             string stringPayload = JsonConvert.SerializeObject(model);
             var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
             var response = client.PutAsync($"/v1/resourceowner/triggers/{notificationId}", content).Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace Automile.Net
             string stringPayload = JsonConvert.SerializeObject(model);
             var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
             var response = client.PutAsync($"/v1/resourceowner/triggers/mute/{notificationId}", content).Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
         }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace Automile.Net
         public void UnmuteNotification(int notificationId)
         {
             var response = client.PutAsync($"/v1/resourceowner/triggers/unmute/{notificationId}", null).Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
         }
 
     }

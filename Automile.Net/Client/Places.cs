@@ -17,7 +17,7 @@ namespace Automile.Net
         public IEnumerable<PlaceModel> GetPlaces()
         {
             var response = client.GetAsync("/v1/resourceowner/place").Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<List<PlaceModel>>(response.Content.ReadAsStringAsync().Result);
         }
 
@@ -29,7 +29,7 @@ namespace Automile.Net
         public PlaceModel GetPlaceById(int placeId)
         {
             var response = client.GetAsync($"/v1/resourceowner/place/{placeId}").Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<PlaceModel>(response.Content.ReadAsStringAsync().Result);
         }
 
@@ -43,10 +43,10 @@ namespace Automile.Net
             string stringPayload = JsonConvert.SerializeObject(model);
             var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
             var response = client.PostAsync("/v1/resourceowner/place", content).Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             var urlToCreatedPlace = response.Headers.GetValues("Location").First();
             var placeModelResult = client.GetAsync(urlToCreatedPlace).Result;
-            placeModelResult.EnsureSuccessStatusCode();
+            placeModelResult.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<PlaceModel>(placeModelResult.Content.ReadAsStringAsync().Result);
         }
 
@@ -60,7 +60,7 @@ namespace Automile.Net
             string stringPayload = JsonConvert.SerializeObject(model);
             var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
             var response = client.PutAsync($"/v1/resourceowner/place/{placeId}", content).Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace Automile.Net
         public void DeletePlace(int placeId)
         {
             var response = client.DeleteAsync($"/v1/resourceowner/place/{placeId}").Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
         }
 
 

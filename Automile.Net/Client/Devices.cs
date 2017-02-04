@@ -17,7 +17,7 @@ namespace Automile.Net
         public IEnumerable<IMEIConfigModel> GetDevices()
         {
             var response = client.GetAsync("/v1/resourceowner/imeiconfigs").Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<List<IMEIConfigModel>>(response.Content.ReadAsStringAsync().Result);
         }
 
@@ -29,7 +29,7 @@ namespace Automile.Net
         public IMEIConfigDetailModel GetDeviceById(int deviceId)
         {
             var response = client.GetAsync($"/v1/resourceowner/imeiconfigs/{deviceId}").Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<IMEIConfigDetailModel>(response.Content.ReadAsStringAsync().Result);
         }
 
@@ -43,10 +43,10 @@ namespace Automile.Net
             string stringPayload = JsonConvert.SerializeObject(model);
             var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
             var response = client.PostAsync("/v1/resourceowner/imeiconfigs", content).Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             var urlToCreatedDevice = response.Headers.GetValues("Location").First();
             var deviceModel = client.GetAsync(urlToCreatedDevice).Result;
-            deviceModel.EnsureSuccessStatusCode();
+            deviceModel.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<IMEIConfigDetailModel>(deviceModel.Content.ReadAsStringAsync().Result);
         }
 
@@ -60,7 +60,7 @@ namespace Automile.Net
             string stringPayload = JsonConvert.SerializeObject(model);
             var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
             var response = client.PutAsync($"/v1/resourceowner/imeiconfigs/{deviceId}", content).Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
          }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace Automile.Net
         public void DeleteDevice(int deviceId)
         {
             var response = client.DeleteAsync($"/v1/resourceowner/imeiconfigs/{deviceId}").Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
         }
 
     }

@@ -16,7 +16,7 @@ namespace Automile.Net
         public IEnumerable<Contact2Model> GetContacts()
         {
             var response = client.GetAsync("/v1/resourceowner/contacts2").Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<List<Contact2Model>>(response.Content.ReadAsStringAsync().Result);
         }
 
@@ -28,7 +28,7 @@ namespace Automile.Net
         public Contact2DetailModel GetContactById(int contactId)
         {
             var response = client.GetAsync($"/v1/resourceowner/contacts2/{contactId}").Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<Contact2DetailModel>(response.Content.ReadAsStringAsync().Result);
         }
 
@@ -40,7 +40,7 @@ namespace Automile.Net
         public Contact2DetailModel GetMe()
         {
             var response = client.GetAsync("/v1/resourceowner/contacts2/me").Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<Contact2DetailModel>(response.Content.ReadAsStringAsync().Result);
         }
 

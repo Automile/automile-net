@@ -17,7 +17,7 @@ namespace Automile.Net
         public IEnumerable<GeofenceModel> GetGeofences()
         {
             var response = client.GetAsync("/v1/resourceowner/geofence").Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<List<GeofenceModel>>(response.Content.ReadAsStringAsync().Result);
         }
 
@@ -29,7 +29,7 @@ namespace Automile.Net
         public GeofenceModel GetGeofenceById(int geofenceId)
         {
             var response = client.GetAsync($"/v1/resourceowner/geofence/{geofenceId}").Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<GeofenceModel>(response.Content.ReadAsStringAsync().Result);
         }
 
@@ -43,10 +43,10 @@ namespace Automile.Net
             string stringPayload = JsonConvert.SerializeObject(model);
             var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
             var response = client.PostAsync("/v1/resourceowner/geofence", content).Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             var urlToCreatedGeofence = response.Headers.GetValues("Location").First();
             var geofenceModelResponse = client.GetAsync(urlToCreatedGeofence).Result;
-            geofenceModelResponse.EnsureSuccessStatusCode();
+            geofenceModelResponse.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<GeofenceModel>(geofenceModelResponse.Content.ReadAsStringAsync().Result);
         }
 
@@ -60,7 +60,7 @@ namespace Automile.Net
             string stringPayload = JsonConvert.SerializeObject(model);
             var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
             var response = client.PutAsync($"/v1/resourceowner/geofence/{geofenceId}", content).Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace Automile.Net
         public void DeleteGeofence(int geofenceId)
         {
             var response = client.DeleteAsync($"/v1/resourceowner/geofence/{geofenceId}").Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
         }
 
     }

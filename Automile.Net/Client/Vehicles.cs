@@ -17,7 +17,7 @@ namespace Automile.Net
         public IEnumerable<Vehicle2Model> GetVehicles()
         {
             var response = client.GetAsync("/v1/resourceowner/vehicles2").Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<List<Vehicle2Model>>(response.Content.ReadAsStringAsync().Result);
         }
 
@@ -29,7 +29,7 @@ namespace Automile.Net
         public Vehicle2DetailModel GetVehicleById(int vehicleId)
         {
             var response = client.GetAsync($"/v1/resourceowner/vehicles2/{vehicleId}").Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<Vehicle2DetailModel>(response.Content.ReadAsStringAsync().Result);
         }
 
@@ -40,7 +40,7 @@ namespace Automile.Net
         public IEnumerable<VehicleStatusModel> GetStatusForVehicles()
         {
             var response = client.GetAsync($"/v1/resourceowner/vehicles2/status").Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<List<VehicleStatusModel>>(response.Content.ReadAsStringAsync().Result);
         }
 
@@ -54,7 +54,7 @@ namespace Automile.Net
             string stringPayload = JsonConvert.SerializeObject(model);
             var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
             var response = client.PutAsync($"/v1/resourceowner/vehicles2/{vehicleId}", content).Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace Automile.Net
             string stringPayload = JsonConvert.SerializeObject(model);
             var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
             var response = client.PostAsync($"/v1/resourceowner/vehicles2/checkin", content).Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace Automile.Net
         public void CheckOut()
         {
             var response = client.PostAsync($"/v1/resourceowner/vehicles2/checkout", null).Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace Automile.Net
         public void DeleteVehicle(int vehicleId)
         {
             var response = client.DeleteAsync($"/v1/resourceowner/vehicles2/{vehicleId}").Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
         }
 
          /// <summary>
@@ -98,10 +98,10 @@ namespace Automile.Net
             string stringPayload = JsonConvert.SerializeObject(model);
             var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
             var response = client.PostAsync($"/v1/resourceowner/vehicles2", content).Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             var urlToCreatedVehicle = response.Headers.GetValues("Location").First();
             var vehicleModelResponse = client.GetAsync(urlToCreatedVehicle).Result;
-            vehicleModelResponse.EnsureSuccessStatusCode();
+            vehicleModelResponse.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<VehicleDetailModel>(vehicleModelResponse.Content.ReadAsStringAsync().Result);
         }
     }

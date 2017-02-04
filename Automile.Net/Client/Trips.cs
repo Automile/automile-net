@@ -18,7 +18,7 @@ namespace Automile.Net
         public IEnumerable<TripModel> GetTrips(int lastNumberOfDays, int? vehicleId = null, bool synchronized = true)
         {
             var response = client.GetAsync($"/v1/resourceowner/trips?lastNumberOfDays={lastNumberOfDays}&vehicleId={vehicleId}&synchronized={synchronized}").Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<List<TripModel>>(response.Content.ReadAsStringAsync().Result);
         }
 
@@ -30,7 +30,7 @@ namespace Automile.Net
         public TripDetailModel GetTripById(int tripId)
         {
             var response = client.GetAsync($"/v1/resourceowner/trips/{tripId}").Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<TripDetailModel>(response.Content.ReadAsStringAsync().Result);
         }
 
@@ -42,7 +42,7 @@ namespace Automile.Net
         public TripStartEndGeoModel GetTripStartStopLatitudeLongitude(int tripId)
         {
             var response = client.GetAsync($"/v1/resourceowner/trips/{tripId}/geostartend").Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<TripStartEndGeoModel>(response.Content.ReadAsStringAsync().Result);
         }
 
@@ -54,7 +54,7 @@ namespace Automile.Net
         public IEnumerable<VehicleSpeedModel> GetTripSpeed(int tripId)
         {
             var response = client.GetAsync($"/v1/resourceowner/trips/{tripId}/speed").Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<List<VehicleSpeedModel>>(response.Content.ReadAsStringAsync().Result);
         }
 
@@ -66,7 +66,7 @@ namespace Automile.Net
         public IEnumerable<RPMModel> GetTripRPM(int tripId)
         {
             var response = client.GetAsync($"/v1/resourceowner/trips/{tripId}/rpm").Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<List<RPMModel>>(response.Content.ReadAsStringAsync().Result);
         }
 
@@ -78,7 +78,7 @@ namespace Automile.Net
         public IEnumerable<AmbientAirTemperatureModel> GetTripAmbientTemperature(int tripId)
         {
             var response = client.GetAsync($"/v1/resourceowner/trips/{tripId}/ambienttemperature").Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<List<AmbientAirTemperatureModel>>(response.Content.ReadAsStringAsync().Result);
         }
 
@@ -90,7 +90,7 @@ namespace Automile.Net
         public IEnumerable<FuelLevelInputModel> GetTripFuelLevel(int tripId)
         {
             var response = client.GetAsync($"/v1/resourceowner/trips/{tripId}/ambienttemperature").Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<List<FuelLevelInputModel>>(response.Content.ReadAsStringAsync().Result);
         }
 
@@ -102,7 +102,7 @@ namespace Automile.Net
         public IEnumerable<EngineCoolantTemperatureModel> GetTripEngineCoolantTemperature(int tripId)
         {
             var response = client.GetAsync($"/v1/resourceowner/trips/{tripId}/enginecoolanttemperature").Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<List<EngineCoolantTemperatureModel>>(response.Content.ReadAsStringAsync().Result);
         }
 
@@ -114,7 +114,7 @@ namespace Automile.Net
         public IEnumerable<PIDModel> GetTripPIDRaw(int tripId, int pidId)
         {
             var response = client.GetAsync($"/v1/resourceowner/trips/{tripId}/pid/{pidId}").Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<List<PIDModel>>(response.Content.ReadAsStringAsync().Result);
         }
 
@@ -127,7 +127,7 @@ namespace Automile.Net
         public IEnumerable<TripGeoModel> GeoTripLatitudeLongitude(int tripId, int everyNthRecord = 1, bool snapToRoad = true)
         {
             var response = client.GetAsync($"/v1/resourceowner/trips/{tripId}/geo?everyNthRecord={everyNthRecord}&snapToRoad={snapToRoad}").Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<List<TripGeoModel>>(response.Content.ReadAsStringAsync().Result);
         }
 
@@ -141,7 +141,7 @@ namespace Automile.Net
             string stringPayload = JsonConvert.SerializeObject(model);
             var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
             var response = client.PutAsync($"/v1/resourceowner/trips/{tripId}", content).Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
         }
 
         /// <summary>
@@ -153,7 +153,7 @@ namespace Automile.Net
             string stringPayload = JsonConvert.SerializeObject(model);
             var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
             var response = client.PutAsync($"/v1/resourceowner/trips/addnotestolasttrip", content).Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
         }
 
 
@@ -165,7 +165,7 @@ namespace Automile.Net
         public void SetDriverOnTrip(int tripId, int contactId)
         {
             var response = client.PutAsync($"/v1/resourceowner/trips/setdriverontrip?tripId={tripId}&contactId={contactId}", null).Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
         }
 
         /// <summary>
@@ -177,7 +177,7 @@ namespace Automile.Net
             string stringPayload = JsonConvert.SerializeObject(model);
             var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
             var response = client.PostAsync($"/v1/resourceowner/trips/synchronized", content).Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
         }
 
 
@@ -189,7 +189,7 @@ namespace Automile.Net
         public TripConcatenation GetCompletedTripDetails(int tripId)
         {
             var response = client.GetAsync($"/v1/resourceowner/trips/{tripId}/details").Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<TripConcatenation>(response.Content.ReadAsStringAsync().Result);
         }
 
@@ -201,7 +201,7 @@ namespace Automile.Net
         public TripConcatenation GetCompletedTripDetailsAdvanced(int tripId)
         {
             var response = client.GetAsync($"/v1/resourceowner/trips/{tripId}/advanced").Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<TripConcatenation>(response.Content.ReadAsStringAsync().Result);
         }
     }

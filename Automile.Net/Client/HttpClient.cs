@@ -53,7 +53,7 @@ namespace Automile.Net
             string stringPayload = JsonConvert.SerializeObject(requestModel);
             var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
             var response = signupClient.PostAsync($"/signup", content).Result;
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return JsonConvert.DeserializeObject<SignUpResponseModel>(response.Content.ReadAsStringAsync().Result);
         }
 
@@ -107,7 +107,7 @@ namespace Automile.Net
             var content = new FormUrlEncodedContent(formUrlContent);
             var response = client.PostAsync("OAuth2/Token/", content).Result;
 
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
 
             TokenPair = JsonConvert.DeserializeObject<TokenPair>(response.Content.ReadAsStringAsync().Result);
             TokenPair.Expires = DateTime.UtcNow.AddSeconds(TokenPair.ExpiresIn);
@@ -181,7 +181,7 @@ namespace Automile.Net
             var content = new FormUrlEncodedContent(formUrlContent);
             var response = client.PostAsync("OAuth2/Token/", content).Result;
 
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
 
             TokenPair = JsonConvert.DeserializeObject<TokenPair>(response.Content.ReadAsStringAsync().Result);
             TokenPair.Expires = DateTime.UtcNow.AddSeconds(TokenPair.ExpiresIn);

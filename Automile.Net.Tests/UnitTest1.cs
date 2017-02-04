@@ -57,7 +57,9 @@ namespace Automile.Net.Tests
         [TestMethod]
         public void TestGetTrip()
         {
-            TripDetailModel trip = client.GetTripById(31826384);
+           // TripDetailModel trip = client.GetTripById(31565475);
+           TripDetailModel trip = client.GetTripById(31826384);
+
             Assert.IsNotNull(trip);
         }
 

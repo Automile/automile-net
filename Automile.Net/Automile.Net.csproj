@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client\Contacts.cs" />
+    <Compile Include="Client\Devices.cs" />
+    <Compile Include="Client\Places.cs" />
     <Compile Include="Client\Geofence.cs" />
     <Compile Include="Client\Notifications.cs" />
     <Compile Include="Client\Trips.cs" />

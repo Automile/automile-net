@@ -10,20 +10,21 @@ namespace Automile.Net.Tests
     public class UnitTest1
     {
         private AutomileClient client;
+        private IEnumerable<PlaceModel> places;
 
         [TestInitialize]
         public void Initialize()
         {
-            client = new AutomileClient(@"c:\temp\token.json");
+           client = new AutomileClient(@"c:\temp\token.json");
         }
 
-        [TestMethod]
-        public void TestSignup()
-        {
-           var saveThisResponse = AutomileClient.SignUp("hello.developer5@automile.com");
-           var myClient = new AutomileClient(saveThisResponse);
-           Assert.IsNotNull(myClient);
-        }
+        //[TestMethod]
+        //public void TestSignup()
+        //{
+        //   var saveThisResponse = AutomileClient.SignUp("hello.developer5@automile.com");
+        //   var myClient = new AutomileClient(saveThisResponse);
+        //   Assert.IsNotNull(myClient);
+        //}
 
         [TestMethod]
         public void TestGetVehicles()
@@ -210,7 +211,7 @@ namespace Automile.Net.Tests
             coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.44873066, Longitude = -122.15365648 });
             coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.4416096, Longitude = -122.16112375 });
 
-            client.EditGeofence(3319, new GeofenceEditModel()
+            client.EditGeofence(3270, new GeofenceEditModel()
             {
                 Name = "My Palo Alto geofence",
                 Description = "Outside main offfice",
@@ -218,6 +219,12 @@ namespace Automile.Net.Tests
                 GeofenceType = ApiGeofenceType.Outside,
                 Schedules = null // if you want to add a specific schedule
             });
+        }
+
+        [TestMethod]
+        public void TestDeleteGeofence()
+        {
+            client.DeleteGeofence(3270);
         }
 
         [TestMethod]
@@ -277,5 +284,97 @@ namespace Automile.Net.Tests
         {
             client.UnmuteNotification(190914);
         }
+
+        [TestMethod]
+        public void TestGetPlaces()
+        {
+            IEnumerable<PlaceModel> places = client.GetPlaces();
+            Assert.IsNotNull(places);
+        }
+
+        [TestMethod]
+        public void TestGetPlaceById()
+        {
+            PlaceModel place = client.GetPlaceById(10977);
+            Assert.IsNotNull(place);
+        }
+
+        [TestMethod]
+        public void TestCreatePlace()
+        {
+            PlaceModel place = client.CreatePlace(new PlaceCreateModel()
+            {
+                Name = "My place",
+                Description = "My home",
+                PositionPoint = new PositionPointModel() { Latitude = 37.445368, Longitude = -122.166608 },
+                Radius = 100,
+                TripType = ApiTripType.Business,
+                TripTypeTrigger = ApiTripTypeTrigger.Start,
+                VehicleId = 33553
+            });
+            Assert.IsNotNull(place);
+        }
+
+        [TestMethod]
+        public void TestEditPlace()
+        {
+            client.EditPlace(11968, new PlaceEditModel()
+            {
+                Name = "My place",
+                Description = "My home",
+                PositionPoint = new PositionPointModel() { Latitude = 37.445368, Longitude = -122.166608 },
+                Radius = 100,
+                TripType = ApiTripType.Business,
+                TripTypeTrigger = ApiTripTypeTrigger.DrivesBetween,
+            });
+        }
+
+        [TestMethod]
+        public void TestDeletePlace()
+        {
+            client.DeletePlace(11968);
+        }
+
+        [TestMethod]
+        public void TestGetDevices()
+        {
+            IEnumerable<IMEIConfigModel> devices = client.GetDevices();
+            Assert.IsNotNull(devices);
+        }
+
+        [TestMethod]
+        public void TestGetDeviceById()
+        {
+            IMEIConfigDetailModel device = client.GetDeviceById(28288);
+            Assert.IsNotNull(device);
+        }
+
+        [TestMethod]
+        public void TestCreateDevice()
+        {
+            IMEIConfigDetailModel newDevice = client.CreateDevice(new IMEIConfigCreateModel()
+            {
+                IMEI = "353466073376499",
+                SerialNumber = "7011261106",
+                VehicleId = 33553,
+                IMEIDeviceType = null // no need if you register a box
+            });
+            Assert.IsNotNull(newDevice);
+        }
+
+        [TestMethod]
+        public void TestEditDevice()
+        {
+            client.EditDevice(28288, new IMEIConfigEditModel()
+            {
+                VehicleId = 33553
+            });
+        }
+
+        [TestMethod]
+        public void TestDeleteDevice()
+        {
+            client.DeleteDevice(11968);
+        }
     }
-    }
+}

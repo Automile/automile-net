@@ -11,6 +11,7 @@
     public enum ApiTripTypeTrigger : byte
     {
         Start = 0,
-        End = 1
+        End = 1,
+        DrivesBetween = 2,
     }
 }

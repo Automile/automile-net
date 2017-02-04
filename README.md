@@ -61,6 +61,8 @@ That's shouldn't have been too hard :sweat_drops:
 * [Driver](#contact-methods)  
 * [Geofence](#geofence-methods)  
 * [Notification (webhooks, e-mail, text, inbox and push)](#notification-methods)  
+* [Places (automation)](#place-methods)
+* [Devices](#device-methods)
 
 ### Vehicle Methods
 
@@ -315,4 +317,93 @@ client.UnmuteNotification(190913);
 client.DeleteNotification(190913);
 ```
 
+### Place Methods
 
+With places you can track visits (stops) to locations and carry out certain automation
+rules. A place is a position (latitude and longitude) and a radius (given in metric meters).
+
+#### Get all places
+```C#
+var places =  client.GetPlaces();
+```
+
+#### Get details for a specific place
+```C#
+var placeDetails =  client.GetPlaceById(10977);
+```
+
+#### Create a place for automation and associate it with the first vehicle
+```C#
+var newPlace = client.CreatePlace(new PlaceCreateModel()
+{
+    Name = "My place",
+    Description = "My home",
+    PositionPoint = new PositionPointModel() { Latitude = 37.445368, Longitude = -122.166608 },
+    Radius = 100, //metric meters
+	//This will whenever the vehicle starts at this location set it to business
+    TripType = ApiTripType.Business, 
+    TripTypeTrigger = ApiTripTypeTrigger.Start,
+    VehicleId = 33553
+});
+```
+
+#### Edit a place
+```C#
+client.EditPlace(11968, new PlaceEditModel()
+{
+    Name = "My place",
+    Description = "My home",
+    PositionPoint = new PositionPointModel() { Latitude = 37.445368, Longitude = -122.166608 },
+    Radius = 100,
+    TripType = ApiTripType.Business,
+    TripTypeTrigger = ApiTripTypeTrigger.DrivesBetween,
+});
+```
+
+#### Delete a place
+```C#
+client.DeletePlace(11968);
+```
+
+### Device Methods (earlier called IMEIConfig)
+
+Devices are smartphones or/and Automile's smart boxes. Every box is attached to a vehicle.
+Notifications are attached to devices while places and geofences are attached to vehicles.
+
+#### Get all devices
+```C#
+var devices =  client.GetDevices();
+```
+
+#### Get details for a specific device
+```C#
+var deviceDetails =  client.GetDeviceById(28288);
+```
+
+#### Register a device and associate it to a vehicle
+```C#
+var newDevice = client.CreateDevice(new IMEIConfigCreateModel()
+{
+    IMEI = "353466072332998",
+    SerialNumber = "6070763210",
+    VehicleId = 33553,
+    IMEIDeviceType = null // no need if you register a box
+});
+```
+
+#### Edit a device
+```C#
+client.EditDevice(28288, new IMEIConfigEditModel()
+{
+    VehicleId = 33553
+});
+```
+**What do I use this for ?** This method is used to move a device to another vehicle.
+Automile still apply automatic creation of vehicles and moving devices when they are 
+moved to new vehicles. But in a cases you may want to move the device manually to another
+vehicle.
+
+#### Delete a device
+```C#
+client.DeleteDevice(11968);
+```

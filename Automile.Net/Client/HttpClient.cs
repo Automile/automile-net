@@ -18,7 +18,7 @@ namespace Automile.Net
     {
         const string apiUrl = "https://api.automile.com";
 
-       // const string apiUrl = "https://localhost:44302/";
+    //    const string apiUrl = "https://localhost:44302/";
 
         private HttpClient client;
 
@@ -70,7 +70,7 @@ namespace Automile.Net
                 AllowAutoRedirect = true,
                 UseDefaultCredentials = false
             });
-            client.Timeout = TimeSpan.FromSeconds(5);
+            client.Timeout = TimeSpan.FromSeconds(15);
             client.BaseAddress = new Uri(apiUrl);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Add("User-Agent", "Automile.Net SDK");

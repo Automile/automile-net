@@ -48,6 +48,8 @@
     <Compile Include="Client\Contacts.cs" />
     <Compile Include="Client\Devices.cs" />
     <Compile Include="Client\Extensions.cs" />
+    <Compile Include="Client\NotificationMessages.cs" />
+    <Compile Include="Client\Fleets.cs" />
     <Compile Include="Client\Places.cs" />
     <Compile Include="Client\Geofence.cs" />
     <Compile Include="Client\Notifications.cs" />

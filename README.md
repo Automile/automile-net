@@ -68,8 +68,10 @@ That's shouldn't have been too hard :sweat_drops:
 * [Driver](#contact-methods)  
 * [Geofence](#geofence-methods)  
 * [Notification (webhooks, e-mail, text, inbox and push)](#notification-methods)  
+* [Notification Messages](#notification-message-methods)  
 * [Places (automation)](#place-methods)
 * [Devices](#device-methods)
+* [Fleets](#fleet-methods)
 
 ### Vehicle Methods
 
@@ -324,6 +326,18 @@ client.UnmuteNotification(190913);
 client.DeleteNotification(190913);
 ```
 
+### Notification Message Methods
+
+This is used to get historic messages that have been sent to the destination configured.
+
+#### Get all notifications messages
+```C#
+var notificationMessages =  client.GetNotificationMessages();
+
+#### Get all notifications messages for a specific notification
+```C#
+var forSpecificNotification =  client.GetNotificationMessagesByNotificationId(148638);
+
 ### Place Methods
 
 With places you can track visits (stops) to locations and carry out certain automation
@@ -413,4 +427,37 @@ vehicle.
 #### Delete a device
 ```C#
 client.DeleteDevice(11968);
+```
+
+### Fleet Methods
+
+Fleets are used to divide vehicles into groups that can apply different security priviligies.
+
+#### Get all fleets
+```C#
+var fleets =  client.GetFleets();
+```
+
+#### Get details for a specific fleet
+```C#
+var fleetDetails =  client.GetFleetById(3331);
+```
+
+#### Create a fleet and associate it with me (in this case)
+```C#
+var newFleet = client.CreateFleet(new CompanyCreateModel()
+{
+    CreateRelationshipToContactId = 2,
+    Description = "Some good description for the fleet",
+    RegisteredCompanyName = "My new fleet"
+});
+```
+
+#### Edit a fleet
+```C#
+client.EditFleet(3331, new CompanyEditModel()
+{
+    Description = "Test",
+    RegisteredCompanyName = "Automile Palo Alto Fleet"
+});
 ```

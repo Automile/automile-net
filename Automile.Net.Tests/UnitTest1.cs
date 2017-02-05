@@ -15,7 +15,7 @@ namespace Automile.Net.Tests
         [TestInitialize]
         public void Initialize()
         {
-           client = new AutomileClient(@"c:\temp\token.json");
+            client = new AutomileClient(@"c:\temp\token.json");
         }
 
         //[TestMethod]
@@ -378,5 +378,59 @@ namespace Automile.Net.Tests
         {
             client.DeleteDevice(11968);
         }
+
+
+        [TestMethod]
+        public void TestGetFleets()
+        {
+            IEnumerable<CompanyModel> fleets = client.GetFleets();
+            Assert.IsNotNull(fleets);
+        }
+
+        [TestMethod]
+        public void TestGetFleetById()
+        {
+            CompanyDetailModel fleetDetail = client.GetFleetById(3331);
+            Assert.IsNotNull(fleetDetail);
+        }
+
+        [TestMethod]
+        public void TestEditFleet()
+        {
+            client.EditFleet(3331, new CompanyEditModel()
+            {
+                Description = "Test",
+                RegisteredCompanyName = "Automile Palo Alto Fleet"
+            });
+        }
+
+        [TestMethod]
+        public void TestCreateFleet()
+        {
+           var newFleet = client.CreateFleet(new CompanyCreateModel()
+            {
+                CreateRelationshipToContactId = 2,
+                Description = "Some good description for the fleet",
+                RegisteredCompanyName = "My new fleet"
+            });
+
+            Assert.IsNotNull(newFleet);
+        }
+
+
+        [TestMethod]
+        public void TestGetNotificationMessages()
+        {
+            IEnumerable<TriggerMessageHistoryModel> messages = client.GetNotificationMessages();
+            Assert.IsNotNull(messages);
+        }
+
+        [TestMethod]
+        public void TestGetNotificationMessageById()
+        {
+            IEnumerable<TriggerMessageHistoryModel> messages = client.GetNotificationMessagesByNotificationId(148638);
+            Assert.IsNotNull(messages);
+        }
+
     }
 }

@@ -71,3 +71,4 @@ bower_components
 Temp/
 nuget.config
 Solutions/
+*.nupkg

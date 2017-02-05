@@ -3,7 +3,7 @@
   <metadata>
     <id>Automile.Net</id>
     <version>0.1.0</version>
-    <title>Automile.Net API for fleet-management</title>
+    <title>Automile.Net API for fleet management</title>
     <authors>Automile Inc.</authors>
     <owners>Automile</owners>
     <summary>A library to help .NET developers easily access the Automile REST API</summary>

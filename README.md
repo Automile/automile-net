@@ -1,3 +1,5 @@
+![Automile](https://content.automile.com/automile_logo_symbol_64x64.png "Automile 291 Alma Street, Palo Alto, California 943 01, US")
+
 # Official Automile REST API for .NET
 Automile offers a simple, smart, cutting-edge telematics solution for businesses to track and manage their business vehicles. Automile is a next-gen IoT solution and the overall experience is unmatched. Business of all sizes love to use Automile to get fleet intelligence whether it is understanding driving behavior, recording vehicle defects and expenses, tracking vehicles real time or securing vehicles from un-authorized use. 
 
@@ -17,13 +19,18 @@ API information can be found at https://api.automile.com. If you need any help, 
 ## Prerequisites
 
 - .NET version 4.5 or newer
-- Automile subscription or developer account, starting from [$5.90 per month](https://automile.com)
 
 ## Dependencies
 
 - [Newtonsoft.Json](http://www.newtonsoft.com/json)
 
 ## Quickstart :running:
+
+Installing via NuGet
+
+```C#
+Install-Package Automile.Net -prerelease
+```
 
 Add the Automile namespace were you want to use the code.
 

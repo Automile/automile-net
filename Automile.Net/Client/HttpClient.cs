@@ -35,7 +35,7 @@ namespace Automile.Net
 #if DEBUG
             ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
 #endif
-
+            
             signupClient = new HttpClient(new HttpClientHandler()
             {
                 AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip,

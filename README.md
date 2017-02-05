@@ -72,6 +72,11 @@ That's shouldn't have been too hard :sweat_drops:
 * [Places (automation)](#place-methods)
 * [Devices](#device-methods)
 * [Fleets](#fleet-methods)
+* [Attach Geofences to Vehicles (coming)](#attach-geofence-methods)
+* [Attach Places to Vehicles (coming)](#attach-places-methods)
+* [Attach Vehicles to Fleet (coming)](#attach-vehicles-methods)
+* [Device Events (coming)](#device-events-methods)
+
 
 ### Vehicle Methods
 
@@ -388,7 +393,7 @@ client.EditPlace(11968, new PlaceEditModel()
 client.DeletePlace(11968);
 ```
 
-### Device Methods (earlier called IMEIConfig)
+### Device Methods
 
 Devices are smartphones or/and Automile's smart boxes. Every box is attached to a vehicle.
 Notifications are attached to devices while places and geofences are attached to vehicles.

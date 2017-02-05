@@ -16,7 +16,7 @@ namespace Automile.Net.Tests
         public void Initialize()
         {
             client = new AutomileClient(@"c:\temp\token.json");
-        }
+         }
 
         //[TestMethod]
         //public void TestSignup()

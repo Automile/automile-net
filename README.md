@@ -333,10 +333,12 @@ This is used to get historic messages that have been sent to the destination con
 #### Get all notifications messages
 ```C#
 var notificationMessages =  client.GetNotificationMessages();
+```
 
 #### Get all notifications messages for a specific notification
 ```C#
 var forSpecificNotification =  client.GetNotificationMessagesByNotificationId(148638);
+```
 
 ### Place Methods
 

@@ -54,6 +54,7 @@
     <Compile Include="Client\Geofence.cs" />
     <Compile Include="Client\Notifications.cs" />
     <Compile Include="Client\Trips.cs" />
+    <Compile Include="Client\VehicleGeofences.cs" />
     <Compile Include="Client\Vehicles.cs" />
     <Compile Include="Client\HttpClient.cs" />
     <Compile Include="Client\TokenPair.cs" />

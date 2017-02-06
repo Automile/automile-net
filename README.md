@@ -72,7 +72,7 @@ That's shouldn't have been too hard :sweat_drops:
 * [Places (automation)](#place-methods)
 * [Devices](#device-methods)
 * [Fleets](#fleet-methods)
-* [Attach Geofences to Vehicles (coming)](#attach-geofence-methods)
+* [Attach Geofences to Vehicles](#attach-geofence-methods)
 * [Attach Places to Vehicles (coming)](#attach-places-methods)
 * [Attach Vehicles to Fleet (coming)](#attach-vehicles-methods)
 * [Device Events (coming)](#device-events-methods)
@@ -467,4 +467,50 @@ client.EditFleet(3331, new CompanyEditModel()
     Description = "Test",
     RegisteredCompanyName = "Automile Palo Alto Fleet"
 });
+```
+
+#### Delete a fleet
+```C#
+client.DeleteFleet(3331);
+```
+
+### Attach Geofence Methods
+
+A geofence can have one or many included vehicles which are called relationships. These methods
+allows you to list, get, create, edit and delete these relationships.
+
+#### Get all vehicle geofences - relationships between a vehicle and a geofence
+```C#
+var vehicleGeofencesRelationships =  client.GetVehicleGeofencesByGeofenceId();
+```
+
+#### Get all relationships to vehicles for a specific geofence
+```C#
+var vehicleGeofenceRelationships =  client.GetVehicleGeofenceById(44251);
+```
+
+#### Create a relationship between a vehicle and a geofence
+```C#
+var newVehicleGeofenceRelationship = client.CreateVehicleGeofence(new VehicleGeofenceCreateModel()
+{
+    GeofenceId = 3276,
+    VehicleId = data.VehicleId,
+	// Restrict when this geofence should be valid from and to if needed
+    ValidFrom = null,
+    ValidTo = null
+});
+```
+
+#### Edit a vehicle geofence relationship
+```C#
+client.EditVehicleGeofence(44251, new VehicleGeofenceEditModel()
+{
+	ValidFrom = DateTime.UtcNow,
+	ValidTo = DateTime.UtcNow.AddDays(30)
+});
+```
+
+#### Delete a vehicle geofence relationship
+```C#
+client.DeleteVehicleGeofence(44251);
 ```

@@ -74,8 +74,8 @@ That's shouldn't have been too hard :sweat_drops:
 * [Fleets](#fleet-methods)
 * [Attach Geofences to Vehicles](#attach-geofence-methods)
 * [Attach Places to Vehicles](#attach-places-methods)
-* [Attach Vehicles to Fleet (coming)](#attach-vehicles-methods)
-* [Device Events (coming)](#device-events-methods)
+* [Attach Vehicles to Fleet](#attach-vehicles-methods)
+* [Device Events](#device-events-methods)
 
 
 ### Vehicle Methods
@@ -494,7 +494,7 @@ var vehicleGeofenceRelationships =  client.GetVehicleGeofenceById(44251);
 var newVehicleGeofenceRelationship = client.CreateVehicleGeofence(new VehicleGeofenceCreateModel()
 {
     GeofenceId = 3276,
-    VehicleId = data.VehicleId,
+    VehicleId = 33553,
 	// Restrict when this geofence should be valid from and to if needed
     ValidFrom = null,
     ValidTo = null
@@ -536,7 +536,7 @@ var vehiclePlaceRelationships =  client.GetVehiclePlacesByPlaceId(44251);
 var newVehiclePlace = client.CreateVehiclePlace(new VehiclePlaceCreateModel()
 {
     PlaceId = 10977,
-    VehicleId = data.VehicleId,
+    VehicleId = 33553,
     Description = "Some description",
     Radius = 100,
     TripType = ApiTripType.Business,
@@ -560,3 +560,31 @@ client.EditVehiclePlace(30567, new VehiclePlaceEditModel()
 ```C#
 client.DeleteVehiclePlace(36405);
 ```
+
+### Device Events Methods
+
+Device events are a number of events like connect, disconnect, mileage indicator lamp (MIL on/off), 
+diagnostic trouble codes (DTC).
+
+#### Get all device events
+```C#
+var deviceEvents =  client.GetDeviceEvents();
+```
+
+#### Getting details about a status event (connected or disconnected)
+```C#
+var deviceStatusEvent =  client.GetDeviceEventStatusById(1138161);
+```
+
+#### Getting details about a mileage indicator lamp (MIL) event (on or off)
+```C#
+var deviceMILEvent =  client.GetDeviceEventMILById(1138162);
+```
+
+#### Getting details about a diagnostic trouble code (DTC) event
+```C#
+var deviceMILEvent =  client.GetDeviceEventDTCById(1138213);
+```
+
+
+

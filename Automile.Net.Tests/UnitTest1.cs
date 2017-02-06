@@ -609,5 +609,18 @@ namespace Automile.Net.Tests
             client.DeleteVehiclePlace(35575);
         }
 
+        [TestMethod]
+        public void TestGetDeviceEvents()
+        {
+            var events = client.GetDeviceEvents();
+            Assert.IsNotNull(events);
+        }
+
+        [TestMethod]
+        public void TestGetDeviceStatusEvent()
+        {
+            var ev = client.GetDeviceEventStatusById(1138161);
+            Assert.IsNotNull(ev);
+        }
     }
 }

@@ -11,34 +11,35 @@ namespace Automile.Net
     public partial class AutomileClient
     {
         /// <summary>
-        /// Get all places belonging to all vehicles
+        /// Get details about a specific relationship between a place and a vehicle
         /// </summary>
-        /// <returns></returns>
-        public IEnumerable<PlaceModel> GetPlaces()
+        /// <param name="vehicleGeofenceId"></param>
+        /// <returns>The detailed model for the relationship</returns>
+        public VehiclePlaceModel GetVehiclePlaceById(int vehiclePlaceId)
         {
-            var response = client.GetAsync("/v1/resourceowner/place").Result;
+            var response = client.GetAsync($"/v1/resourceowner/vehicleplace/{vehiclePlaceId}").Result;
             response.EnsureSuccessStatusCodeWithProperExceptionMessage();
-            return JsonConvert.DeserializeObject<List<PlaceModel>>(response.Content.ReadAsStringAsync().Result);
+            return JsonConvert.DeserializeObject<VehiclePlaceModel>(response.Content.ReadAsStringAsync().Result);
         }
 
         /// <summary>
-        /// Get the details about a specific place
+        /// Get's all relationsships between places and vehicles
         /// </summary>
         /// <param name="placeId"></param>
         /// <returns></returns>
-        public PlaceModel GetPlaceById(int placeId)
+        public IEnumerable<VehiclePlaceModel> GetVehiclePlacesByPlaceId(int placeId)
         {
-            var response = client.GetAsync($"/v1/resourceowner/place/{placeId}").Result;
+            var response = client.GetAsync($"/v1/resourceowner/vehicleplace?placeId={placeId}").Result;
             response.EnsureSuccessStatusCodeWithProperExceptionMessage();
-            return JsonConvert.DeserializeObject<PlaceModel>(response.Content.ReadAsStringAsync().Result);
+            return JsonConvert.DeserializeObject<List<VehiclePlaceModel>>(response.Content.ReadAsStringAsync().Result);
         }
 
         /// <summary>
-        /// Creates a place and associates it with the first vehicle and returns the created place
+        /// Creates a relationship between a vehicle and a place and returns the newly created relationship
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public PlaceModel CreatePlace(PlaceCreateModel model)
+        public VehiclePlaceModel CreateVehiclePlace(VehiclePlaceCreateModel model)
         {
             if (model.TripTypeTrigger.HasValue == true && model.TripTypeTrigger.Value == ApiTripTypeTrigger.DrivesBetween && model.DrivesBetweenAnotherPlaceId.HasValue == false)
                 throw new ArgumentException("You need to enter the second place when you select the drives between type, use the DrivesBetweenAnotherPlaceId property");
@@ -48,20 +49,20 @@ namespace Automile.Net
 
             string stringPayload = JsonConvert.SerializeObject(model);
             var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
-            var response = client.PostAsync("/v1/resourceowner/place", content).Result;
+            var response = client.PostAsync($"/v1/resourceowner/vehicleplace", content).Result;
             response.EnsureSuccessStatusCodeWithProperExceptionMessage();
-            var urlToCreatedPlace = response.Headers.GetValues("Location").First();
-            var placeModelResult = client.GetAsync(urlToCreatedPlace).Result;
-            placeModelResult.EnsureSuccessStatusCodeWithProperExceptionMessage();
-            return JsonConvert.DeserializeObject<PlaceModel>(placeModelResult.Content.ReadAsStringAsync().Result);
+            var urlToCreatedVehiclePlace = response.Headers.GetValues("Location").First();
+            var vehiclePlaceModelResponse = client.GetAsync(urlToCreatedVehiclePlace).Result;
+            vehiclePlaceModelResponse.EnsureSuccessStatusCodeWithProperExceptionMessage();
+            return JsonConvert.DeserializeObject<VehiclePlaceModel>(vehiclePlaceModelResponse.Content.ReadAsStringAsync().Result);
         }
 
         /// <summary>
-        /// Edit place
+        /// Edit a relationship between a vehicle and a geofence
         /// </summary>
-        /// <param name="placeId"></param>
+        /// <param name="vehicleGeofenceId"></param>
         /// <param name="model"></param>
-        public void EditPlace(int placeId, PlaceEditModel model)
+        public void EditVehiclePlace(int vehiclePlaceId, VehiclePlaceEditModel model)
         {
             if (model.TripTypeTrigger.HasValue == true && model.TripTypeTrigger.Value == ApiTripTypeTrigger.DrivesBetween && model.DrivesBetweenAnotherPlaceId.HasValue == false)
                 throw new ArgumentException("You need to enter the second place when you select the drives between type, use the DrivesBetweenAnotherPlaceId property");
@@ -71,21 +72,18 @@ namespace Automile.Net
 
             string stringPayload = JsonConvert.SerializeObject(model);
             var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
-            var response = client.PutAsync($"/v1/resourceowner/place/{placeId}", content).Result;
+            var response = client.PutAsync($"/v1/resourceowner/vehicleplace/{vehiclePlaceId}", content).Result;
             response.EnsureSuccessStatusCodeWithProperExceptionMessage();
         }
-
+        
         /// <summary>
-        /// Deletes the geofence
+        /// Delete a relationship between a vehicle and a place
         /// </summary>
-        /// <param name="placeId"></param>
-        public void DeletePlace(int placeId)
+        /// <param name="vehiclePlaceId"></param>
+        public void DeleteVehiclePlace(int vehiclePlaceId)
         {
-            var response = client.DeleteAsync($"/v1/resourceowner/place/{placeId}").Result;
+            var response = client.DeleteAsync($"/v1/resourceowner/vehicleplace/{vehiclePlaceId}").Result;
             response.EnsureSuccessStatusCodeWithProperExceptionMessage();
         }
-
-
-
     }
 }

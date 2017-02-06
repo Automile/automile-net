@@ -19,5 +19,7 @@ namespace Automile.Net
         public ApiTripType? TripType { get; set; }
 
         public ApiTripTypeTrigger? TripTypeTrigger { get; set; }
+
+        public int? DrivesBetweenAnotherPlaceId { get; set; }
     }
 }

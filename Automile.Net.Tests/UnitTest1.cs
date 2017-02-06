@@ -560,5 +560,54 @@ namespace Automile.Net.Tests
         }
 
 
+
+        [TestMethod]
+        public void TestGetVehiclePlaces()
+        {
+            IEnumerable<VehiclePlaceModel> vehiclePlaces = client.GetVehiclePlacesByPlaceId(10977);
+            Assert.IsNotNull(vehiclePlaces);
+        }
+
+        [TestMethod]
+        public void TestGetVehiclePlaceById()
+        {
+            VehiclePlaceModel vehiclePlace = client.GetVehiclePlaceById(30567);
+            Assert.IsNotNull(vehiclePlace);
+        }
+
+        [TestMethod]
+        public void TestCreateVehiclePlace()
+        {
+            VehiclePlaceModel newVehiclePlace = client.CreateVehiclePlace(new VehiclePlaceCreateModel()
+            {
+                PlaceId = 10977,
+                VehicleId = data.VehicleId,
+                Description = "Some description",
+                Radius = 100,
+                TripType = ApiTripType.Business,
+                TripTypeTrigger = ApiTripTypeTrigger.Start
+            });
+
+            Assert.IsNotNull(newVehiclePlace);
+        }
+
+        [TestMethod]
+        public void TestEditVehiclePlace()
+        {
+            client.EditVehiclePlace(35575, new VehiclePlaceEditModel()
+            {
+                Description = "Some description",
+                Radius = 100,
+                TripType = ApiTripType.Business,
+                TripTypeTrigger = ApiTripTypeTrigger.Start
+            });
+        }
+
+        [TestMethod]
+        public void TestDeleteVehiclePlace()
+        {
+            client.DeleteVehiclePlace(35575);
+        }
+
     }
 }

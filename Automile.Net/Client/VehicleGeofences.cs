@@ -66,7 +66,7 @@ namespace Automile.Net
         }
 
         /// <summary>
-        /// Delete a vehicle, this requires any given device that has been associated to the vehicle to first be moved.
+        /// Delete a relationship between a vehicle and a geofence
         /// </summary>
         /// <param name="vehicleGeofenceId"></param>
         public void DeleteVehicleGeofence(int vehicleGeofenceId)

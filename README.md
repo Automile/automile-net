@@ -73,7 +73,7 @@ That's shouldn't have been too hard :sweat_drops:
 * [Devices](#device-methods)
 * [Fleets](#fleet-methods)
 * [Attach Geofences to Vehicles](#attach-geofence-methods)
-* [Attach Places to Vehicles (coming)](#attach-places-methods)
+* [Attach Places to Vehicles](#attach-places-methods)
 * [Attach Vehicles to Fleet (coming)](#attach-vehicles-methods)
 * [Device Events (coming)](#device-events-methods)
 
@@ -481,7 +481,7 @@ allows you to list, get, create, edit and delete these relationships.
 
 #### Get all vehicle geofences - relationships between a vehicle and a geofence
 ```C#
-var vehicleGeofencesRelationships =  client.GetVehicleGeofencesByGeofenceId();
+var vehicleGeofencesRelationships =  client.GetVehicleGeofencesByGeofenceId(3276);
 ```
 
 #### Get all relationships to vehicles for a specific geofence
@@ -513,4 +513,50 @@ client.EditVehicleGeofence(44251, new VehicleGeofenceEditModel()
 #### Delete a vehicle geofence relationship
 ```C#
 client.DeleteVehicleGeofence(44251);
+```
+
+### Attach Places Methods
+
+A place can have one or many included vehicles which are called relationships. These methods
+allows you to list, get, create, edit and delete these relationships. A vehicle that has
+a relationship to a place also have it's own radius and automation settings.
+
+#### Get all vehicle places - relationships between a vehicle and a place
+```C#
+var vehiclePlacesRelationships =  client.GetVehiclePlaceById(10977);
+```
+
+#### Get all relationships to vehicles for a specific place
+```C#
+var vehiclePlaceRelationships =  client.GetVehiclePlacesByPlaceId(44251);
+```
+
+#### Create a relationship between a vehicle and a geofence
+```C#
+var newVehiclePlace = client.CreateVehiclePlace(new VehiclePlaceCreateModel()
+{
+    PlaceId = 10977,
+    VehicleId = data.VehicleId,
+    Description = "Some description",
+    Radius = 100,
+    TripType = ApiTripType.Business,
+    TripTypeTrigger = ApiTripTypeTrigger.Start
+});
+```
+
+#### Edit a vehicle place relationship
+```C#
+client.EditVehiclePlace(30567, new VehiclePlaceEditModel()
+{
+    Description = "Some description",
+    Radius = 100,
+    TripType = ApiTripType.Business,
+    TripTypeTrigger = ApiTripTypeTrigger.DrivesBetween,
+    DrivesBetweenAnotherPlaceId = 10979
+});
+```
+
+#### Delete a vehicle place relationship
+```C#
+client.DeleteVehiclePlace(36405);
 ```

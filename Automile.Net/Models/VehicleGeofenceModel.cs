@@ -15,6 +15,15 @@ namespace Automile.Net
     {
         public int VehiclePlaceId { get; set; }
         public int VehicleId { get; set; }
-        public int PlaceId { get; set; }        
+        public int PlaceId { get; set; }
+        public string Description { get; set; }
+
+        public ApiTripType? TripType { get; set; }
+
+        public ApiTripTypeTrigger? TripTypeTrigger { get; set; }
+
+        public int Radius { get; set; }
+
+        public int? DrivesBetweenAnotherPlaceId { get; set; }
     }
 }

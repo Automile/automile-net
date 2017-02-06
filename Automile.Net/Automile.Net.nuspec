@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Automile.Net</id>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
     <title>Automile.Net API for fleet management</title>
     <authors>Automile Inc.</authors>
     <owners>Automile</owners>
@@ -15,6 +15,8 @@
     </iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <releaseNotes>
+      * 0.2.0 - Release supporting vehicles, trips, geofences, places, notifications, notification messages, fleets, devices, device events
+      and relationships for geofences, places vehicles
       * 0.1.0 - Initial release supporting vehicles, trips, geofences, places, notifications and devices
     </releaseNotes>
     <copyright>Copyright 2017 Automile Inc, 291 Alma Street, Palo Alto, California 943 01, United States</copyright>

@@ -74,7 +74,7 @@ That's shouldn't have been too hard :sweat_drops:
 * [Fleets](#fleet-methods)
 * [Attach Geofences to Vehicles](#attach-geofence-methods)
 * [Attach Places to Vehicles](#attach-places-methods)
-* [Attach Vehicles to Fleet](#attach-vehicles-methods)
+* [Attach Vehicles to Fleets](#attach-vehicles-methods)
 * [Device Events](#device-events-methods)
 
 
@@ -292,8 +292,8 @@ var notificationDetails =  client.GetNotificationById(25173);
 var newNotification = client.CreateNotification(new TriggerCreateModel()
 {
     IMEIConfigId = 28288, // What is this ?
-	// IMEIConfigId is the device identifier connected to the vehicle, you
-	// can get this id from the vehicle (GetVehicleById method)
+	// IMEIConfigId is today called DeviceId and is the device identifier 
+	// connected to the vehicle, you can get this id from the vehicle (GetVehicleById method)
     TriggerType = ApiTriggerType.Accident,
     DestinationType = ApiDestinationType.Sms,
     DestinationData = "+14158320378"
@@ -301,7 +301,7 @@ var newNotification = client.CreateNotification(new TriggerCreateModel()
 ```
 
 **Why  using a different identifier for notifications ?** The reasons is that there are two 
-objects, the vehicle contains all properties for a vehicle while a device (called IMEIConfig)
+objects, the vehicle contains all properties for a vehicle while a device (earlier called IMEIConfig)
 is connected to the vehicle. If you move the device to another vehicle the notifications
 are still valid.
 
@@ -309,7 +309,7 @@ are still valid.
 ```C#
 client.EditNotification(190914, new TriggerEditModel()
 {
-    IMEIConfigId = 28288,
+    IMEIConfigId = 28288, // See note above, this is the DeviceId
     TriggerType = ApiTriggerType.Accident,
     DestinationType = ApiDestinationType.Sms,
     DestinationData = "+14158320378"
@@ -583,7 +583,7 @@ var deviceMILEvent =  client.GetDeviceEventMILById(1138162);
 
 #### Getting details about a diagnostic trouble code (DTC) event
 ```C#
-var deviceMILEvent =  client.GetDeviceEventDTCById(1138213);
+var deviceDTCEvent =  client.GetDeviceEventDTCById(1138213);
 ```
 
 

@@ -49,6 +49,7 @@
     <Compile Include="Client\DeviceEvents.cs" />
     <Compile Include="Client\Devices.cs" />
     <Compile Include="Client\Extensions.cs" />
+    <Compile Include="Client\FleetContacts.cs" />
     <Compile Include="Client\NotificationMessages.cs" />
     <Compile Include="Client\Fleets.cs" />
     <Compile Include="Client\Places.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Client\FleetVehicles.cs" />
     <Compile Include="Client\VehicleGeofences.cs" />
     <Compile Include="Client\VehiclePlaces.cs" />
+    <Compile Include="Client\VehicleHealth.cs" />
     <Compile Include="Client\Vehicles.cs" />
     <Compile Include="Client\HttpClient.cs" />
     <Compile Include="Client\TokenPair.cs" />
@@ -186,6 +188,7 @@
     <Compile Include="Models\VehicleGeofenceCreateModel.cs" />
     <Compile Include="Models\VehicleGeofenceEditModel.cs" />
     <Compile Include="Models\VehicleGeofenceModel.cs" />
+    <Compile Include="Models\VehicleHealth.cs" />
     <Compile Include="Models\VehicleInformationType.cs" />
     <Compile Include="Models\VehicleInspectionCreateModels.cs" />
     <Compile Include="Models\VehicleInspectionEditModel.cs" />

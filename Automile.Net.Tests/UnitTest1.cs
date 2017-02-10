@@ -50,8 +50,9 @@ namespace Automile.Net.Tests
         [TestInitialize]
         public void Initialize()
         {
-            client = new AutomileClient(@"c:\temp\token.json");
-            data = TestData.Load();
+            client = new AutomileClient(@"c:\temp\token_dev.json");
+            //client = new AutomileClient(@"c:\temp\token.json");
+            data = new TestData();
             data.VehicleId = 33553;
             data.TripId = 31826384;
             data.IMEIConfigId = 28288;
@@ -622,5 +623,19 @@ namespace Automile.Net.Tests
             var ev = client.GetDeviceEventStatusById(1138161);
             Assert.IsNotNull(ev);
         }
+
+
+        [TestMethod]
+        public void TestGetFleetContacts()
+        {
+            IEnumerable<CompanyContactDetailModel> fleetContacts = client.GetFleetContacts();
+            Assert.IsNotNull(fleetContacts);
+            CompanyContactDetailModel details = client.GetFleetContactById(fleetContacts.First().CompanyContactId);
+            Assert.IsNotNull(details);
+            IEnumerable<CompanyContactDetailModel> fleetContactsForFleet = client.GetFleetContactsByFleetId(fleetContacts.First().CompanyId);
+            Assert.IsNotNull(fleetContactsForFleet);
+        }
+
+
     }
 }

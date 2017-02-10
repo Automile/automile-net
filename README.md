@@ -7,6 +7,8 @@ Automile gives developers a simple way to build services and applications throug
 
 API information can be found at https://api.automile.com. If you need any help, we are here to help. Simply email us at support@automile.com or chat with us.
 
+The latest OpenAPI (fka Swagger) specification may be found at: https://api.automile.com/swagger/docs/v1
+
 :yum:
 
 **This library allows you to quickly and easily use the Automile API via C# with .NET.**

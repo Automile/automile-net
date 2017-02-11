@@ -606,7 +606,7 @@ PublishMessageDateTimeUtc is the date and time (UTC) when the message was publis
 ```json
 {
   "PublishMessageType": 1,
-  "PublishMessageDateTimeUtc": "2017-02-11T03:38:32.7392396Z",
+  "PublishMessageDateTimeUtc": "2017-02-11T04:04:36.926967Z",
   "TripId": 32575162,
   "VehicleId": 33553,
   "DriverContactId": null,
@@ -618,8 +618,6 @@ PublishMessageDateTimeUtc is the date and time (UTC) when the message was publis
   "TripEndFormattedAddress": "829 Thornwood Dr, Palo Alto, CA 94303, USA",
   "TripStartCustomAddress": null,
   "TripEndCustomAddress": null,
-  "TravelTime": null,
-  "ParkedForTimeUntilNextTrip": null,
   "TripLengthInKilometers": 2,
   "TripType": 0,
   "TripTags": null,
@@ -648,7 +646,7 @@ PublishMessageDateTimeUtc is the date and time (UTC) when the message was publis
   "TripStartTimeZone": -8,
   "TripStartFormattedAddress": "2809-2811 Middlefield Rd, Palo Alto, CA 94306, USA",
   "TripStartLongitude": -122.127766666667,
-  "TripStartLatitude": 37.4326833333333,
+  "TripStartLatitude": 37.4326833333333
 }
 ```
 
@@ -658,6 +656,8 @@ For modified PublishMessageType will be 2.
 
 ```json
 {
+  "PublishMessageType": 3,
+  "PublishMessageDateTimeUtc": "2017-02-11T03:50:46.284724Z",
   "VehicleId": 33553,
   "VehicleIdentificationNumber": "WA1DGAFE5FD019516",
   "NumberPlate": "7GDC324",
@@ -678,8 +678,6 @@ For modified PublishMessageType will be 2.
   "AllowSpeedRecording": true,
   "Nickname": "Jens",
   "CategoryColor": 2591227,
-  "Tags": "Oakland clients, test",
-  "PublishMessageType": 3,
-  "PublishMessageDateTimeUtc": "2017-02-11T03:50:46.284724Z"
+  "Tags": "Oakland clients, test"
 }
 ```

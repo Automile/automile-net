@@ -606,7 +606,7 @@ PublishMessageDateTimeUtc is the date and time (UTC) when the message was publis
 ```json
 {
   "PublishMessageType": 1,
-  "PublishMessageDateTimeUtc": "2017-02-11T03:38:32.7392396Z"
+  "PublishMessageDateTimeUtc": "2017-02-11T03:38:32.7392396Z",
   "TripId": 32575162,
   "VehicleId": 33553,
   "DriverContactId": null,
@@ -640,7 +640,7 @@ PublishMessageDateTimeUtc is the date and time (UTC) when the message was publis
 ```json
 {
   "PublishMessageType": 0,
-  "PublishMessageDateTimeUtc": "2017-02-11T03:48:12.0845446Z"
+  "PublishMessageDateTimeUtc": "2017-02-11T03:48:12.0845446Z",
   "TripId": 32575162,
   "VehicleId": 33553,
   "DriverContactId": null,
@@ -653,6 +653,8 @@ PublishMessageDateTimeUtc is the date and time (UTC) when the message was publis
 ```
 
 #### Format for Vehicle modified and created
+
+For modified PublishMessageType will be 2.
 
 ```json
 {
@@ -677,7 +679,7 @@ PublishMessageDateTimeUtc is the date and time (UTC) when the message was publis
   "Nickname": "Jens",
   "CategoryColor": 2591227,
   "Tags": "Oakland clients, test",
-  "PublishMessageType": 3, // will be 2 if modified
+  "PublishMessageType": 3,
   "PublishMessageDateTimeUtc": "2017-02-11T03:50:46.284724Z"
 }
 ```

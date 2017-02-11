@@ -75,6 +75,7 @@ That's shouldn't have been too hard :sweat_drops:
 * [Attach Geofences to Vehicles](#attach-geofence-methods)
 * [Attach Places to Vehicles](#attach-places-methods)
 * [Attach Vehicles to Fleets](#attach-vehicles-methods)
+* [Attach Drivers to Fleets](#attach-drivers-methods)
 * [Device Events](#device-events-methods)
 * [Publish Subscribe](#publish-subscribe-methods)
 
@@ -562,6 +563,48 @@ client.EditVehiclePlace(30567, new VehiclePlaceEditModel()
 client.DeleteVehiclePlace(36405);
 ```
 
+### Attach Driver Methods
+
+A fleet can have one or multiple drivers (contacts) and one or multiple vehicles.
+
+#### Get all drivers - relationships between all fleets and all drivers
+```C#
+var allFleetDrivers =  client.GetFleetContacts();
+```
+
+#### Get specific driver relationships
+```C#
+var specificDriverRelationship =  client.GetFleetContactById(2);
+```
+
+#### Get all drivers for specific fleet - relationships between specific fleet and all drivers
+```C#
+var allDriversForSpecificFleet =  client.GetFleetContactsByFleetId(10);
+```
+
+#### Create a relationship between a driver and a fleet
+```C#
+var newFleetContact = client.CreateFleetContact(new CompanyContactCreateModel()
+{
+    CompanyId = 10,
+    ContactId = 2
+});
+```
+
+#### Edit a driver and fleet relationship
+```C#
+client.EditFleetContact(10398, new CompanyContactEditModel()
+{
+    CompanyId = 11,
+    ContactId = 2
+});
+```
+
+#### Delete a driver fleet relationship
+```C#
+client.DeleteFleetContact(10398);
+```
+
 ### Device Events Methods
 
 Device events are a number of events like connect, disconnect, mileage indicator lamp (MIL on/off), 
@@ -589,11 +632,19 @@ var deviceDTCEvent =  client.GetDeviceEventDTCById(1138213);
 
 ### Publish Subscribe Methods
 
-**Note:** Currentley in alpha. The API allows you to subscribe to certain events.
+**Note:** Currentley in alpha. 
+
+Publish subscribe mimics a message queuing system that allows you to create subscribers that whenever a message 
+is published will repost the message to your endpoint. The publish subscribe framework is more resilient compared
+to simpler web hooks (that are avaialble as part of our notifications) and allows for header authentication, 
+configurable retries and also extends to cover modification and creation of certain objects.
+
+Publish subscribe guranteee that messages received have been fully processed in Automile's microservice architecture
+which means you can assume all properties have been set and calculated. 
 
 All published messages contains two common properties called PublishMessageType and PublishMessageDateTimeUtc.
 
-PublishMessageType equals
+PublishMessageType will contain information what kind of message you are receiving:
 * TripStartMessage = 0,
 * TripEndMessage = 1,
 * VehicleModified = 2,

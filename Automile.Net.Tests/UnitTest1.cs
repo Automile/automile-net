@@ -255,7 +255,7 @@ namespace Automile.Net.Tests
         {
             if (data.GeofenceId.HasValue == false)
                 throw new Exception("There is no geofence id in the test data to use for this test");
-               
+
             var coordinates = new List<GeofencePolygon.GeographicPosition>();
             coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.44666232, Longitude = -122.16905397 });
             coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.4536707, Longitude = -122.16150999 });
@@ -347,7 +347,7 @@ namespace Automile.Net.Tests
             if (data.NotificationId.HasValue == false)
                 throw new Exception("There is no notification id in the test data to use for this test");
 
-            client.MuteNotification(data.NotificationId.Value, 60*60);
+            client.MuteNotification(data.NotificationId.Value, 60 * 60);
         }
 
         [TestMethod]
@@ -490,7 +490,7 @@ namespace Automile.Net.Tests
         [TestMethod]
         public void TestCreateFleet()
         {
-           var newFleet = client.CreateFleet(new CompanyCreateModel()
+            var newFleet = client.CreateFleet(new CompanyCreateModel()
             {
                 CreateRelationshipToContactId = 2,
                 Description = "Some good description for the fleet",
@@ -636,6 +636,22 @@ namespace Automile.Net.Tests
             Assert.IsNotNull(fleetContactsForFleet);
         }
 
+        [TestMethod]
+        public void TestCreateEditDeleteFleetContacts()
+        {
+            var newFleetContact = client.CreateFleetContact(new CompanyContactCreateModel()
+            {
+                CompanyId = 10,
+                ContactId = 2
+            });
 
+            client.EditFleetContact(10398, new CompanyContactEditModel()
+            {
+                CompanyId = 11,
+                ContactId = 2
+            });
+
+            client.DeleteFleetContact(10398);
+        }
     }
 }

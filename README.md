@@ -76,6 +76,7 @@ That's shouldn't have been too hard :sweat_drops:
 * [Attach Places to Vehicles](#attach-places-methods)
 * [Attach Vehicles to Fleets](#attach-vehicles-methods)
 * [Device Events](#device-events-methods)
+* [Publish Subscribe](#publish-subscribe-methods)
 
 
 ### Vehicle Methods
@@ -586,5 +587,97 @@ var deviceMILEvent =  client.GetDeviceEventMILById(1138162);
 var deviceDTCEvent =  client.GetDeviceEventDTCById(1138213);
 ```
 
+### Publish Subscribe Methods
 
+**Note:** Currentley in alpha. The API allows you to subscribe to certain events.
 
+All published messages contains two common properties called PublishMessageType and PublishMessageDateTimeUtc.
+
+PublishMessageType equals
+* TripStartMessage = 0,
+* TripEndMessage = 1,
+* VehicleModified = 2,
+* VehicleCreated = 3
+
+PublishMessageDateTimeUtc is the date and time (UTC) when the message was published.
+
+#### Format for Trip End message
+
+```json
+{
+  "PublishMessageType": 1,
+  "PublishMessageDateTimeUtc": "2017-02-11T03:38:32.7392396Z"
+  "TripId": 32575162,
+  "VehicleId": 33553,
+  "DriverContactId": null,
+  "TripStartDateTime": "2017-02-11T01:14:44",
+  "TripStartTimeZone": -8,
+  "TripEndDateTime": "2017-02-11T01:21:40",
+  "TripEndTimeZone": -8,
+  "TripStartFormattedAddress": "2809-2811 Middlefield Rd, Palo Alto, CA 94306, USA",
+  "TripEndFormattedAddress": "829 Thornwood Dr, Palo Alto, CA 94303, USA",
+  "TripStartCustomAddress": null,
+  "TripEndCustomAddress": null,
+  "TravelTime": null,
+  "ParkedForTimeUntilNextTrip": null,
+  "TripLengthInKilometers": 2,
+  "TripType": 0,
+  "TripTags": null,
+  "FuelInLiters": null,
+  "IdleTimeInSecondsAllTrip": 123,
+  "IdleTimeInSecondsFromStart": 30,
+  "CustomCategory": null,
+  "TripLengthInMinutes": 7,
+  "TripStartLongitude": -122.127766666667,
+  "TripStartLatitude": 37.4326833333333,
+  "TripEndLongitude": -122.114066666667,
+  "TripEndLatitude": 37.4287666666667
+}
+```
+
+#### Format for Trip Start message
+
+```json
+{
+  "PublishMessageType": 0,
+  "PublishMessageDateTimeUtc": "2017-02-11T03:48:12.0845446Z"
+  "TripId": 32575162,
+  "VehicleId": 33553,
+  "DriverContactId": null,
+  "TripStartDateTime": "2017-02-11T01:14:44",
+  "TripStartTimeZone": -8,
+  "TripStartFormattedAddress": "2809-2811 Middlefield Rd, Palo Alto, CA 94306, USA",
+  "TripStartLongitude": -122.127766666667,
+  "TripStartLatitude": 37.4326833333333,
+}
+```
+
+#### Format for Vehicle modified and created
+
+```json
+{
+  "VehicleId": 33553,
+  "VehicleIdentificationNumber": "WA1DGAFE5FD019516",
+  "NumberPlate": "7GDC324",
+  "Make": "Audi",
+  "Model": "Q7",
+  "OwnerContactId": null,
+  "OwnerCompanyId": null,
+  "CurrentOdometerInKilometers": 1558.06,
+  "UserVehicleIdentificationNumber": null,
+  "ModelYear": 2015,
+  "BodyStyle": null,
+  "FuelType": 1,
+  "DefaultTripType": 0,
+  "AllowAutomaticUpdates": true,
+  "DefaultPrivacyPolicyType": null,
+  "CheckedInContactId": null,
+  "MakeImageUrl": "https://content.automile.com/vinlogo/audi.png",
+  "AllowSpeedRecording": true,
+  "Nickname": "Jens",
+  "CategoryColor": 2591227,
+  "Tags": "Oakland clients, test",
+  "PublishMessageType": 3, // will be 2 if modified
+  "PublishMessageDateTimeUtc": "2017-02-11T03:50:46.284724Z"
+}
+```

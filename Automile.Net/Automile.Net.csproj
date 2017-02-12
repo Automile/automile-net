@@ -50,6 +50,7 @@
     <Compile Include="Client\Devices.cs" />
     <Compile Include="Client\Extensions.cs" />
     <Compile Include="Client\FleetContacts.cs" />
+    <Compile Include="Client\PublishSusbcribe.cs" />
     <Compile Include="Client\NotificationMessages.cs" />
     <Compile Include="Client\Fleets.cs" />
     <Compile Include="Client\Places.cs" />
@@ -140,6 +141,10 @@
     <Compile Include="Models\PlaceModel.cs" />
     <Compile Include="Models\PositionPointModel.cs" />
     <Compile Include="Models\ProOrderModel.cs" />
+    <Compile Include="Models\PublishSubscribeAuthenticationDataTypes.cs" />
+    <Compile Include="Models\PublishSubscribeCreateModel.cs" />
+    <Compile Include="Models\PublishSubscribeEditModel.cs" />
+    <Compile Include="Models\PublishSubscribeModel.cs" />
     <Compile Include="Models\ResetPasswordUserModel.cs" />
     <Compile Include="Models\ReverseGeocodingResult.cs" />
     <Compile Include="Models\RPMModel.cs" />
@@ -215,6 +220,8 @@
     <Compile Include="Types\ApiMainFuelType.cs" />
     <Compile Include="Types\ApiMapType.cs" />
     <Compile Include="Types\ApiPrivacyPolicyType.cs" />
+    <Compile Include="Types\ApiPublishSubscribeAuthenticationType.cs" />
+    <Compile Include="Types\ApiPublishType.cs" />
     <Compile Include="Types\ApiResetPasswordType.cs" />
     <Compile Include="Types\ApiRoleTypeInCompany.cs" />
     <Compile Include="Types\ApiTaskStatusType.cs" />

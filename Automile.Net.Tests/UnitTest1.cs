@@ -645,13 +645,13 @@ namespace Automile.Net.Tests
                 ContactId = 2
             });
 
-            client.EditFleetContact(10398, new CompanyContactEditModel()
+            client.EditFleetContact(newFleetContact.CompanyContactId, new CompanyContactEditModel()
             {
                 CompanyId = 11,
                 ContactId = 2
             });
 
-            client.DeleteFleetContact(10398);
+            client.DeleteFleetContact(newFleetContact.CompanyContactId);
         }
     }
 }

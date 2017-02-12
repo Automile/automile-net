@@ -654,6 +654,34 @@ PublishMessageType will contain information what kind of message you are receivi
 
 PublishMessageDateTimeUtc is the date and time (UTC) when the message was published.
 
+#### Get all publich subscribe records
++``C#
+var publishSubscribeRecords =  client.GetPublishSubscribe();
+```
+
+#### Get details about a specific publich subscribe record
++``C#
+var detailsPublishSubscribeRecord =  client.GetPublishSubscribeById(1);
+```
+
+#### Create a subscription
+```C#
+var newSubscription = client.CreatePublishSubscribe("http://requestb.in/pwimfapw");
+```
+
+#### Edit a subscription (pointing to an endpoint requiring basic authentication)
+```C#
+var newSubscription = client.CreatePublishSubscribe("http:/your_basic_auth_endpoint", new PublishSubscribeAuthenticationData_Basic() 
+{
+Username = "username",
+Password = "password"
+});
+```
+#### Delete a subscription (will also delete queued messages)
+```C#
+client.DeletePublishSubscribe(1);
+```
+
 #### Format for Trip End message
 
 ```json

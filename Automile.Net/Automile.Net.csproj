@@ -50,6 +50,8 @@
     <Compile Include="Client\Devices.cs" />
     <Compile Include="Client\Extensions.cs" />
     <Compile Include="Client\FleetContacts.cs" />
+    <Compile Include="Client\ExpenseReport.cs" />
+    <Compile Include="Client\Tasks.cs" />
     <Compile Include="Client\PublishSusbcribe.cs" />
     <Compile Include="Client\NotificationMessages.cs" />
     <Compile Include="Client\Fleets.cs" />

@@ -7,44 +7,18 @@ using System.Linq;
 
 namespace Automile.Net.Tests
 {
-    public class TestData
-    {
-        public int? GeofenceId { get; set; }
-
-        public int? PlaceId { get; set; }
-
-        public int? NotificationId { get; set; }
-
-        public int VehicleId { get; set; }
-
-        public int TripId { get; set; }
-
-        public int ContactId { get; set; }
-
-        public int IMEIConfigId { get; set; }
-
-        public void Save()
-        {
-            var jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(this);
-            System.IO.File.WriteAllText("testdata.json", jsonData);
-        }
-
-        public static TestData Load()
-        {
-            if (System.IO.File.Exists("testdata.json") == false)
-                return null;
-
-            var jsonData = System.IO.File.ReadAllText("testdata.json");
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<TestData>(jsonData);
-        }
-    }
-
 
     [TestClass]
     public class UnitTest1
     {
         private AutomileClient client;
-        private TestData data = null;
+        private int testVehicleId = 33553;
+        private int testTripId = 31826384;
+        private int testIMEIConfigId = 28288;
+        private int testContactId = 2;
+        private int testGeofenceId = 3276;
+        private int testPlaceId = 2245;
+        private int testCompanyId = 1;
 
 
         [TestInitialize]
@@ -52,12 +26,6 @@ namespace Automile.Net.Tests
         {
             client = new AutomileClient(@"c:\temp\token_dev.json");
             //client = new AutomileClient(@"c:\temp\token.json");
-            data = new TestData();
-            data.VehicleId = 33553;
-            data.TripId = 31826384;
-            data.IMEIConfigId = 28288;
-            data.ContactId = 2;
-            data.Save();
         }
 
         //[TestMethod]
@@ -73,12 +41,8 @@ namespace Automile.Net.Tests
         {
             IEnumerable<Vehicle2Model> vehicles = client.GetVehicles();
             Assert.IsNotNull(vehicles);
-        }
 
-        [TestMethod]
-        public void TestGetVehicleById()
-        {
-            Vehicle2DetailModel vehicle = client.GetVehicleById(data.VehicleId);
+            Vehicle2DetailModel vehicle = client.GetVehicleById(vehicles.First().VehicleId);
             Assert.IsNotNull(vehicle);
         }
 
@@ -86,7 +50,7 @@ namespace Automile.Net.Tests
         public void TestGetStatusForVehicles()
         {
             IEnumerable<VehicleStatusModel> status = client.GetStatusForVehicles();
-            Assert.IsTrue(status.Count() > 0);
+            Assert.IsNotNull(status);
         }
 
         [TestMethod]
@@ -99,77 +63,77 @@ namespace Automile.Net.Tests
         [TestMethod]
         public void TestGetTrip()
         {
-            TripDetailModel trip = client.GetTripById(data.TripId);
+            TripDetailModel trip = client.GetTripById(testTripId);
             Assert.IsNotNull(trip);
         }
 
         [TestMethod]
         public void TestGetTripStartStop()
         {
-            TripStartEndGeoModel tripStartStop = client.GetTripStartStopLatitudeLongitude(data.TripId);
+            TripStartEndGeoModel tripStartStop = client.GetTripStartStopLatitudeLongitude(testTripId);
             Assert.IsNotNull(tripStartStop);
         }
 
         [TestMethod]
         public void TestGetTripSpeed()
         {
-            IEnumerable<VehicleSpeedModel> speed = client.GetTripSpeed(data.TripId);
+            IEnumerable<VehicleSpeedModel> speed = client.GetTripSpeed(testTripId);
             Assert.IsNotNull(speed);
         }
 
         [TestMethod]
         public void TestGetTripRPM()
         {
-            IEnumerable<RPMModel> rpm = client.GetTripRPM(data.TripId);
+            IEnumerable<RPMModel> rpm = client.GetTripRPM(testTripId);
             Assert.IsNotNull(rpm);
         }
 
         [TestMethod]
         public void TestGetTripAmbientTemperature()
         {
-            IEnumerable<AmbientAirTemperatureModel> temp = client.GetTripAmbientTemperature(data.TripId);
+            IEnumerable<AmbientAirTemperatureModel> temp = client.GetTripAmbientTemperature(testTripId);
             Assert.IsNotNull(temp);
         }
 
         [TestMethod]
         public void TestGetFuel()
         {
-            IEnumerable<FuelLevelInputModel> fuel = client.GetTripFuelLevel(data.TripId);
+            IEnumerable<FuelLevelInputModel> fuel = client.GetTripFuelLevel(testTripId);
             Assert.IsNotNull(fuel);
         }
 
         [TestMethod]
         public void TestGetEngineCoolantTemperature()
         {
-            IEnumerable<EngineCoolantTemperatureModel> temp = client.GetTripEngineCoolantTemperature(data.TripId);
+            IEnumerable<EngineCoolantTemperatureModel> temp = client.GetTripEngineCoolantTemperature(testTripId);
             Assert.IsNotNull(temp);
         }
 
         [TestMethod]
         public void TestGetRawPIDs()
         {
-            IEnumerable<PIDModel> pidData = client.GetTripPIDRaw(data.TripId, 70);
+            IEnumerable<PIDModel> pidData = client.GetTripPIDRaw(testTripId, 70);
             Assert.IsNotNull(pidData);
         }
 
         [TestMethod]
         public void TestGetTripLatitudeLongitude()
         {
-            IEnumerable<TripGeoModel> geo = client.GeoTripLatitudeLongitude(data.TripId, 1);
+            IEnumerable<TripGeoModel> geo = client.GeoTripLatitudeLongitude(testTripId, 1);
             Assert.IsNotNull(geo);
         }
 
         [TestMethod]
         public void TestGetTripDetails()
         {
-            TripConcatenation tripCat = client.GetCompletedTripDetails(data.TripId);
+            TripConcatenation tripCat = client.GetCompletedTripDetails(testTripId);
             Assert.IsNotNull(tripCat);
         }
 
         [TestMethod]
         public void TestGetTripDetailsAdvanced()
         {
-            TripConcatenation tripCat = client.GetCompletedTripDetailsAdvanced(data.TripId);
+            TripConcatenation tripCat = client.GetCompletedTripDetailsAdvanced(testTripId);
             Assert.IsNotNull(tripCat);
         }
 
@@ -178,12 +142,8 @@ namespace Automile.Net.Tests
         {
             IEnumerable<Contact2Model> drivers = client.GetContacts();
             Assert.IsNotNull(drivers);
-        }
 
-        [TestMethod]
-        public void TestGetContactById()
-        {
-            Contact2DetailModel driver = client.GetContactById(data.ContactId);
+            Contact2DetailModel driver = client.GetContactById(drivers.First().ContactId);
             Assert.IsNotNull(driver);
         }
 
@@ -197,7 +157,7 @@ namespace Automile.Net.Tests
         [TestMethod]
         public void TestEditTrip()
         {
-            client.EditTrip(data.TripId, new TripEditModel()
+            client.EditTrip(testTripId, new TripEditModel()
             {
                 TripTags = new List<string> { "my notes" },
                 TripType = ApiTripType.Business,
@@ -207,7 +167,7 @@ namespace Automile.Net.Tests
         [TestMethod]
         public void TestSetDriverOnTrip()
         {
-            client.SetDriverOnTrip(data.TripId, data.ContactId);
+            client.SetDriverOnTrip(testTripId, testContactId);
         }
 
         [TestMethod]
@@ -215,94 +175,72 @@ namespace Automile.Net.Tests
         {
             IEnumerable<GeofenceModel> geofences = client.GetGeofences();
             Assert.IsNotNull(geofences);
-        }
 
-        [TestMethod]
-        public void TestGetGeofenceDetails()
-        {
-            if (data.GeofenceId.HasValue == false)
-                throw new Exception("There is no geofence id in the test data to use for this test");
-
-            GeofenceModel geofence = client.GetGeofenceById(data.GeofenceId.Value);
+            GeofenceModel geofence = client.GetGeofenceById(geofences.First().GeofenceId);
             Assert.IsNotNull(geofence);
         }
 
         [TestMethod]
         public void CreateGeofence()
         {
-            var coordinates = new List<GeofencePolygon.GeographicPosition>();
-            coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.44666232, Longitude = -122.16905397 });
-            coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.4536707, Longitude = -122.16150999 });
-            coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.44873066, Longitude = -122.15365648 });
-            coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.4416096, Longitude = -122.16112375 });
-
-            var newGeofence = client.CreateGeofence(new GeofenceCreateModel()
+            GeofenceModel newGeofence = null;
             {
-                Name = "My Palo Alto geofence",
-                Description = "Outside main offfice",
-                VehicleId = 33553,
-                GeofencePolygon = new GeofencePolygon(coordinates),
-                GeofenceType = ApiGeofenceType.Outside,
-                Schedules = null // if you want to add a specific schedule
-            });
+                var coordinates = new List<GeofencePolygon.GeographicPosition>();
+                coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.44666232, Longitude = -122.16905397 });
+                coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.4536707, Longitude = -122.16150999 });
+                coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.44873066, Longitude = -122.15365648 });
+                coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.4416096, Longitude = -122.16112375 });
 
-            var testData = new TestData() { GeofenceId = newGeofence.GeofenceId };
-            testData.Save();
-        }
+                newGeofence = client.CreateGeofence(new GeofenceCreateModel()
+                {
+                    Name = "My Palo Alto geofence",
+                    Description = "Outside main offfice",
+                    VehicleId = 33553,
+                    GeofencePolygon = new GeofencePolygon(coordinates),
+                    GeofenceType = ApiGeofenceType.Outside,
+                    Schedules = null // if you want to add a specific schedule
+                });
 
-        [TestMethod]
-        public void EditGeofence()
-        {
-            if (data.GeofenceId.HasValue == false)
-                throw new Exception("There is no geofence id in the test data to use for this test");
+                Assert.IsNotNull(newGeofence);
+            }
 
-            var coordinates = new List<GeofencePolygon.GeographicPosition>();
-            coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.44666232, Longitude = -122.16905397 });
-            coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.4536707, Longitude = -122.16150999 });
-            coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.44873066, Longitude = -122.15365648 });
-            coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.4416096, Longitude = -122.16112375 });
-
-            client.EditGeofence(data.GeofenceId.Value, new GeofenceEditModel()
             {
-                Name = "My Palo Alto geofence",
-                Description = "Outside main offfice",
-                GeofencePolygon = new GeofencePolygon(coordinates),
-                GeofenceType = ApiGeofenceType.Outside,
-                Schedules = null // if you want to add a specific schedule
-            });
+                var coordinates = new List<GeofencePolygon.GeographicPosition>();
+                coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.44666232, Longitude = -122.16905397 });
+                coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.4536707, Longitude = -122.16150999 });
+                coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.44873066, Longitude = -122.15365648 });
+                coordinates.Add(new GeofencePolygon.GeographicPosition() { Latitude = 37.4416096, Longitude = -122.16112375 });
+
+                client.EditGeofence(newGeofence.GeofenceId, new GeofenceEditModel()
+                {
+                    Name = "My Palo Alto geofence",
+                    Description = "Outside main offfice",
+                    GeofencePolygon = new GeofencePolygon(coordinates),
+                    GeofenceType = ApiGeofenceType.Outside,
+                    Schedules = null // if you want to add a specific schedule
+                });
+            }
+
+            client.DeleteGeofence(newGeofence.GeofenceId);
         }
-
-        [TestMethod]
-        public void TestDeleteGeofence()
-        {
-            if (data.GeofenceId.HasValue == false)
-                throw new Exception("There is no geofence id in the test data to use for this test");
-
-            client.DeleteGeofence(data.GeofenceId.Value);
-            data.GeofenceId = null;
-            data.Save();
-        }
-
+        
         [TestMethod]
         public void TestGetNotifications()
         {
             IEnumerable<TriggerModel> notifications = client.GetNotifications();
             Assert.IsNotNull(notifications);
-        }
 
-        [TestMethod]
-        public void TestGetNotificationDetails()
-        {
-            var notification = client.GetNotificationById(25173);
+            var notification = client.GetNotificationById(notifications.First().TriggerId);
             Assert.IsNotNull(notification);
         }
 
+     
         [TestMethod]
         public void TestCreateNotification()
         {
             var newNotification = client.CreateNotification(new TriggerCreateModel()
             {
-                IMEIConfigId = data.IMEIConfigId,
+                IMEIConfigId = testIMEIConfigId,
                 TriggerType = ApiTriggerType.Accident,
                 DestinationType = ApiDestinationType.Sms,
                 DestinationData = "+14158320378"
@@ -310,69 +248,28 @@ namespace Automile.Net.Tests
 
             Assert.AreEqual("+14158320378", newNotification.DestinationData);
 
-            data.NotificationId = newNotification.TriggerId;
-            data.Save();
-        }
-
-        [TestMethod]
-        public void TestEditNotification()
-        {
-            if (data.NotificationId.HasValue == false)
-                throw new Exception("There is no notification id in the test data to use for this test");
-
-            client.EditNotification(data.NotificationId.Value, new TriggerEditModel()
+            client.EditNotification(newNotification.TriggerId, new TriggerEditModel()
             {
-                IMEIConfigId = data.IMEIConfigId,
+                IMEIConfigId = testIMEIConfigId,
                 TriggerType = ApiTriggerType.Accident,
                 DestinationType = ApiDestinationType.Sms,
                 DestinationData = "+14158320378"
             });
+
+            client.MuteNotification(newNotification.TriggerId, 60 * 60);
+
+            client.UnmuteNotification(newNotification.TriggerId);
+
+            client.DeleteNotification(newNotification.TriggerId);
         }
-
-        [TestMethod]
-        public void TestDeleteNotification()
-        {
-            if (data.NotificationId.HasValue == false)
-                throw new Exception("There is no notification id in the test data to use for this test");
-
-            client.DeleteNotification(data.NotificationId.Value);
-
-            data.NotificationId = null;
-            data.Save();
-        }
-
-        [TestMethod]
-        public void TestMuteNotification()
-        {
-            if (data.NotificationId.HasValue == false)
-                throw new Exception("There is no notification id in the test data to use for this test");
-
-            client.MuteNotification(data.NotificationId.Value, 60 * 60);
-        }
-
-        [TestMethod]
-        public void TestUnmuteNotification()
-        {
-            if (data.NotificationId.HasValue == false)
-                throw new Exception("There is no notification id in the test data to use for this test");
-
-            client.UnmuteNotification(data.NotificationId.Value);
-        }
-
+      
         [TestMethod]
         public void TestGetPlaces()
         {
             IEnumerable<PlaceModel> places = client.GetPlaces();
             Assert.IsNotNull(places);
-        }
 
-        [TestMethod]
-        public void TestGetPlaceById()
-        {
-            if (data.PlaceId.HasValue == false)
-                throw new Exception("There is no place id in the test data to use for this test");
-
-            PlaceModel place = client.GetPlaceById(data.PlaceId.Value);
+            PlaceModel place = client.GetPlaceById(places.First().PlaceId);
             Assert.IsNotNull(place);
         }
 
@@ -389,18 +286,9 @@ namespace Automile.Net.Tests
                 TripTypeTrigger = ApiTripTypeTrigger.Start,
                 VehicleId = 33553
             });
-            data.PlaceId = place.PlaceId;
-            data.Save();
             Assert.IsNotNull(place);
-        }
 
-        [TestMethod]
-        public void TestEditPlace()
-        {
-            if (data.PlaceId.HasValue == false)
-                throw new Exception("There is no place id in the test data to use for this test");
-
-            client.EditPlace(data.PlaceId.Value, new PlaceEditModel()
+            client.EditPlace(place.PlaceId, new PlaceEditModel()
             {
                 Name = "My place",
                 Description = "My home",
@@ -409,28 +297,18 @@ namespace Automile.Net.Tests
                 TripType = ApiTripType.Business,
                 TripTypeTrigger = ApiTripTypeTrigger.DrivesBetween,
             });
+
+            client.DeletePlace(place.PlaceId);
         }
 
-        [TestMethod]
-        public void TestDeletePlace()
-        {
-            if (data.PlaceId.HasValue == false)
-                throw new Exception("There is no place id in the test data to use for this test");
-
-            client.DeletePlace(data.PlaceId.Value);
-        }
-
+    
         [TestMethod]
         public void TestGetDevices()
         {
             IEnumerable<IMEIConfigModel> devices = client.GetDevices();
             Assert.IsNotNull(devices);
-        }
 
-        [TestMethod]
-        public void TestGetDeviceById()
-        {
-            IMEIConfigDetailModel device = client.GetDeviceById(data.IMEIConfigId);
+            IMEIConfigDetailModel device = client.GetDeviceById(devices.First().IMEIConfigId);
             Assert.IsNotNull(device);
         }
 
@@ -445,21 +323,13 @@ namespace Automile.Net.Tests
                 IMEIDeviceType = null // no need if you register a box
             });
             Assert.IsNotNull(newDevice);
-        }
 
-        [TestMethod]
-        public void TestEditDevice()
-        {
-            client.EditDevice(28288, new IMEIConfigEditModel()
+            client.EditDevice(newDevice.IMEIConfigId, new IMEIConfigEditModel()
             {
                 VehicleId = 33553
             });
-        }
 
-        [TestMethod]
-        public void TestDeleteDevice()
-        {
-            client.DeleteDevice(11968);
+            client.DeleteDevice(newDevice.IMEIConfigId);
         }
 
 
@@ -468,25 +338,11 @@ namespace Automile.Net.Tests
         {
             IEnumerable<CompanyModel> fleets = client.GetFleets();
             Assert.IsNotNull(fleets);
-        }
 
-        [TestMethod]
-        public void TestGetFleetById()
-        {
-            CompanyDetailModel fleetDetail = client.GetFleetById(3331);
+            CompanyDetailModel fleetDetail = client.GetFleetById(fleets.First().CompanyId);
             Assert.IsNotNull(fleetDetail);
         }
-
-        [TestMethod]
-        public void TestEditFleet()
-        {
-            client.EditFleet(3331, new CompanyEditModel()
-            {
-                Description = "Test",
-                RegisteredCompanyName = "Automile Palo Alto Fleet"
-            });
-        }
-
+     
         [TestMethod]
         public void TestCreateFleet()
         {
@@ -498,6 +354,14 @@ namespace Automile.Net.Tests
             });
 
             Assert.IsNotNull(newFleet);
+
+            client.EditFleet(newFleet.CompanyId, new CompanyEditModel()
+            {
+                Description = "Test",
+                RegisteredCompanyName = "Automile Palo Alto Fleet"
+            });
+
+            client.DeleteFleet(newFleet.CompanyId);
         }
 
 
@@ -506,27 +370,19 @@ namespace Automile.Net.Tests
         {
             IEnumerable<TriggerMessageHistoryModel> messages = client.GetNotificationMessages();
             Assert.IsNotNull(messages);
+
+            IEnumerable<TriggerMessageHistoryModel> messagesForNotification = client.GetNotificationMessagesByNotificationId(messages.First().TriggerId);
+            Assert.IsNotNull(messagesForNotification);
         }
 
-        [TestMethod]
-        public void TestGetNotificationMessageById()
-        {
-            IEnumerable<TriggerMessageHistoryModel> messages = client.GetNotificationMessagesByNotificationId(148638);
-            Assert.IsNotNull(messages);
-        }
-
-
+     
         [TestMethod]
         public void TestGetVehicleGeofences()
         {
-            IEnumerable<VehicleGeofenceModel> vehicleGeofences = client.GetVehicleGeofencesByGeofenceId(3276);
+            IEnumerable<VehicleGeofenceModel> vehicleGeofences = client.GetVehicleGeofencesByGeofenceId(testGeofenceId);
             Assert.IsNotNull(vehicleGeofences);
-        }
 
-        [TestMethod]
-        public void TestGetVehicleGeofenceById()
-        {
-            VehicleGeofenceModel vehicleGeofence = client.GetVehicleGeofenceById(44251);
+            VehicleGeofenceModel vehicleGeofence = client.GetVehicleGeofenceById(vehicleGeofences.First().VehicleGeofenceId);
             Assert.IsNotNull(vehicleGeofence);
         }
 
@@ -535,44 +391,31 @@ namespace Automile.Net.Tests
         {
             VehicleGeofenceModel newVehicleGeofence = client.CreateVehicleGeofence(new VehicleGeofenceCreateModel()
             {
-                GeofenceId = 3276,
-                VehicleId = data.VehicleId,
+                GeofenceId = testGeofenceId,
+                VehicleId = testVehicleId,
                 ValidFrom = null,
                 ValidTo = null
             });
 
             Assert.IsNotNull(newVehicleGeofence);
-        }
 
-        [TestMethod]
-        public void TestEditVehicleGeofence()
-        {
-            client.EditVehicleGeofence(44251, new VehicleGeofenceEditModel()
+            client.EditVehicleGeofence(newVehicleGeofence.VehicleGeofenceId, new VehicleGeofenceEditModel()
             {
                 ValidFrom = DateTime.UtcNow,
                 ValidTo = DateTime.UtcNow.AddDays(30)
             });
+
+            client.DeleteVehicleGeofence(newVehicleGeofence.VehicleGeofenceId);
         }
 
-        [TestMethod]
-        public void TestDeleteVehicleGeofence()
-        {
-            client.DeleteVehicleGeofence(46942);
-        }
-
-
-
+    
         [TestMethod]
         public void TestGetVehiclePlaces()
         {
-            IEnumerable<VehiclePlaceModel> vehiclePlaces = client.GetVehiclePlacesByPlaceId(10977);
+            IEnumerable<VehiclePlaceModel> vehiclePlaces = client.GetVehiclePlacesByPlaceId(testPlaceId);
             Assert.IsNotNull(vehiclePlaces);
-        }
 
-        [TestMethod]
-        public void TestGetVehiclePlaceById()
-        {
-            VehiclePlaceModel vehiclePlace = client.GetVehiclePlaceById(30567);
+            VehiclePlaceModel vehiclePlace = client.GetVehiclePlaceById(vehiclePlaces.First().VehiclePlaceId);
             Assert.IsNotNull(vehiclePlace);
         }
 
@@ -581,8 +424,8 @@ namespace Automile.Net.Tests
         {
             VehiclePlaceModel newVehiclePlace = client.CreateVehiclePlace(new VehiclePlaceCreateModel()
             {
-                PlaceId = 10977,
-                VehicleId = data.VehicleId,
+                PlaceId = testPlaceId,
+                VehicleId = testVehicleId,
                 Description = "Some description",
                 Radius = 100,
                 TripType = ApiTripType.Business,
@@ -590,41 +433,29 @@ namespace Automile.Net.Tests
             });
 
             Assert.IsNotNull(newVehiclePlace);
-        }
 
-        [TestMethod]
-        public void TestEditVehiclePlace()
-        {
-            client.EditVehiclePlace(35575, new VehiclePlaceEditModel()
+            client.EditVehiclePlace(newVehiclePlace.VehiclePlaceId, new VehiclePlaceEditModel()
             {
                 Description = "Some description",
                 Radius = 100,
                 TripType = ApiTripType.Business,
                 TripTypeTrigger = ApiTripTypeTrigger.Start
             });
+
+            client.DeleteVehiclePlace(newVehiclePlace.VehiclePlaceId);
         }
 
-        [TestMethod]
-        public void TestDeleteVehiclePlace()
-        {
-            client.DeleteVehiclePlace(35575);
-        }
-
+      
         [TestMethod]
         public void TestGetDeviceEvents()
         {
             var events = client.GetDeviceEvents();
             Assert.IsNotNull(events);
-        }
 
-        [TestMethod]
-        public void TestGetDeviceStatusEvent()
-        {
-            var ev = client.GetDeviceEventStatusById(1138161);
+            var ev = client.GetDeviceEventStatusById(events.First().IMEIEventId);
             Assert.IsNotNull(ev);
         }
-
-
+        
         [TestMethod]
         public void TestGetFleetContacts()
         {
@@ -641,14 +472,14 @@ namespace Automile.Net.Tests
         {
             var newFleetContact = client.CreateFleetContact(new CompanyContactCreateModel()
             {
-                CompanyId = 10,
-                ContactId = 2
+                CompanyId = testCompanyId,
+                ContactId = testContactId
             });
 
             client.EditFleetContact(newFleetContact.CompanyContactId, new CompanyContactEditModel()
             {
-                CompanyId = 11,
-                ContactId = 2
+                CompanyId = testCompanyId,
+                ContactId = testContactId
             });
 
             client.DeleteFleetContact(newFleetContact.CompanyContactId);

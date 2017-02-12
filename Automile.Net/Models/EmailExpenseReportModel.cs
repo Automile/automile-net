@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Automile.Net.ExpenseReports
+namespace Automile.Net
 {
     public class EmailExpenseReportModel
     {

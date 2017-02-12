@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Automile.Net.ExpenseReports
+namespace Automile.Net
 {
     public class EmailExpenseReportsModel
     {

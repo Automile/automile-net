@@ -14,6 +14,7 @@ namespace Automile.Net
         public string ClientSecret { get; set; }
         public string ClientId { get; set; }
         public string AuthCode { get; set; }
+        public string RedirectUrl { get; set; }
     }
 
     public class PublishSubscribeAuthenticationData_Basic

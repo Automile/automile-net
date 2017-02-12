@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Automile.Net.ExpenseReports
+namespace Automile.Net
 {
     public class ExpenseReportCreateModel
     {

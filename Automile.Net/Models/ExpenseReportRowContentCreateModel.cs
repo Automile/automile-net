@@ -1,6 +1,6 @@
 
 
-namespace Automile.Net.ExpenseReports
+namespace Automile.Net
 {
     public class ExpenseReportRowContentCreateModel
     {

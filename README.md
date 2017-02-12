@@ -638,8 +638,9 @@ var deviceDTCEvent =  client.GetDeviceEventDTCById(1138213);
 
 Publish subscribe mimics a message queuing system that allows you to create subscribers that whenever a message 
 is published will repost the message to your endpoint. The publish subscribe framework is more resilient compared
-to simpler web hooks (that are avaialble as part of our notifications) and allows for header authentication, 
-configurable retries and also extends to cover modification and creation of certain objects.
+to simpler web hooks (that are available as part of our notifications) and allows for anonymous, basic, bearer
+and Salesforce specific authentication. It also allows for configurable retries and also extends to cover 
+modification and creation of certain objects.
 
 Publish subscribe guranteee that messages received have been fully processed in Automile's microservice architecture
 which means you can assume all properties have been set and calculated. 
@@ -650,28 +651,31 @@ PublishMessageType will contain information what kind of message you are receivi
 * TripStartMessage = 0,
 * TripEndMessage = 1,
 * VehicleModified = 2,
-* VehicleCreated = 3
+* VehicleCreated = 3,
+* DriverModified = 4,
+* DriverCreated = 5
 
 PublishMessageDateTimeUtc is the date and time (UTC) when the message was published.
 
-#### Get all publich subscribe records
-+``C#
+#### Get all publish subscribe records
+```C#
 var publishSubscribeRecords =  client.GetPublishSubscribe();
 ```
 
-#### Get details about a specific publich subscribe record
-+``C#
+#### Get details about a specific publish subscribe record
+```C#
 var detailsPublishSubscribeRecord =  client.GetPublishSubscribeById(1);
 ```
 
-#### Create a subscription
+#### Create a new subscription with anonymous authentication (several overloads available)
 ```C#
 var newSubscription = client.CreatePublishSubscribe("http://requestb.in/pwimfapw");
 ```
 
 #### Edit a subscription (pointing to an endpoint requiring basic authentication)
 ```C#
-var newSubscription = client.CreatePublishSubscribe("http:/your_basic_auth_endpoint", new PublishSubscribeAuthenticationData_Basic() 
+var newSubscription = client.CreatePublishSubscribe("http:/your_basic_auth_endpoint", 
+new PublishSubscribeAuthenticationData_Basic() 
 {
 Username = "username",
 Password = "password"

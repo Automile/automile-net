@@ -13,7 +13,7 @@ namespace Automile.Net.Tests
     {
         private AutomileClient client;
         private int testVehicleId = 33553;
-        private int testTripId = 31826384;
+        private int testTripId = 31331100;
         private int testIMEIConfigId = 28288;
         private int testContactId = 2;
         private int testGeofenceId = 3276;
@@ -24,8 +24,14 @@ namespace Automile.Net.Tests
         [TestInitialize]
         public void Initialize()
         {
-            client = new AutomileClient(@"c:\temp\token_dev.json");
-            //client = new AutomileClient(@"c:\temp\token.json");
+            //jens test pahome
+            //client = new AutomileClient(@"c:\temp\token_dev_jenshome.json");
+            
+            // jens test paoffice
+            //client = new AutomileClient(@"c:\temp\token_dev.json");
+
+            // prod
+            client = new AutomileClient(@"c:\temp\token.json");
         }
 
         //[TestMethod]
@@ -56,7 +62,7 @@ namespace Automile.Net.Tests
         [TestMethod]
         public void TestGetTrips()
         {
-            IEnumerable<TripModel> tripsLastDay = client.GetTrips(1);
+            IEnumerable<TripModel> tripsLastDay = client.GetTrips(100);
             Assert.IsNotNull(tripsLastDay);
         }
 
@@ -295,7 +301,7 @@ namespace Automile.Net.Tests
                 PositionPoint = new PositionPointModel() { Latitude = 37.445368, Longitude = -122.166608 },
                 Radius = 100,
                 TripType = ApiTripType.Business,
-                TripTypeTrigger = ApiTripTypeTrigger.DrivesBetween,
+                TripTypeTrigger = ApiTripTypeTrigger.End
             });
 
             client.DeletePlace(place.PlaceId);
@@ -449,10 +455,12 @@ namespace Automile.Net.Tests
         [TestMethod]
         public void TestGetDeviceEvents()
         {
-            var events = client.GetDeviceEvents();
+            var events = client.GetDeviceEvents().ToList();
             Assert.IsNotNull(events);
 
-            var ev = client.GetDeviceEventStatusById(events.First().IMEIEventId);
+            var first = events.First(i => i.EventType == "status");
+
+            var ev = client.GetDeviceEventStatusById(first.IMEIEventId);
             Assert.IsNotNull(ev);
         }
         
@@ -473,13 +481,13 @@ namespace Automile.Net.Tests
             var newFleetContact = client.CreateFleetContact(new CompanyContactCreateModel()
             {
                 CompanyId = testCompanyId,
-                ContactId = testContactId
+                ContactId = 23
             });
 
             client.EditFleetContact(newFleetContact.CompanyContactId, new CompanyContactEditModel()
             {
                 CompanyId = testCompanyId,
-                ContactId = testContactId
+                ContactId = 23
             });
 
             client.DeleteFleetContact(newFleetContact.CompanyContactId);

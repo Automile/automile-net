@@ -19,19 +19,23 @@ namespace Automile.Net.Tests
         private int testGeofenceId = 3276;
         private int testPlaceId = 2245;
         private int testCompanyId = 1;
-
+        private int testTaskMessageId = 7194;
+      
 
         [TestInitialize]
         public void Initialize()
         {
             //jens test pahome
-            //client = new AutomileClient(@"c:\temp\token_dev_jenshome.json");
+            client = new AutomileClient(@"c:\temp\tokenavinash.json");
             
             // jens test paoffice
             //client = new AutomileClient(@"c:\temp\token_dev.json");
 
             // prod
-            client = new AutomileClient(@"c:\temp\token.json");
+           // client = new AutomileClient(@"c:\temp\token.json");
+
+            
+           
         }
 
         //[TestMethod]
@@ -492,5 +496,12 @@ namespace Automile.Net.Tests
 
             client.DeleteFleetContact(newFleetContact.CompanyContactId);
         }
+        [TestMethod]
+        public void TestGetTaskMessage()
+        {
+            TaskMessageModel TaskMessage = client.GetByTaskMessageId(testTaskMessageId);
+            Assert.IsNotNull(TaskMessage);
+        }
+
     }
 }

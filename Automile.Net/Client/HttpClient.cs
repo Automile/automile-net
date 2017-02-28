@@ -16,9 +16,9 @@ namespace Automile.Net
     /// </summary>
     public partial class AutomileClient
     {
-        const string apiUrl = "https://api.automile.com";
+        //const string apiUrl = "https://api.automile.com";
 
-       // const string apiUrl = "https://localhost:44302/";
+       const string apiUrl = "https://localhost:44302/";
 
         private HttpClient client;
 

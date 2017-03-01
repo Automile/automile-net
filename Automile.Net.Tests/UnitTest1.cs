@@ -496,11 +496,33 @@ namespace Automile.Net.Tests
 
             client.DeleteFleetContact(newFleetContact.CompanyContactId);
         }
+
         [TestMethod]
         public void TestGetTaskMessage()
         {
             TaskMessageModel TaskMessage = client.GetByTaskMessageId(testTaskMessageId);
             Assert.IsNotNull(TaskMessage);
+        }
+
+        [TestMethod]
+        public void TestCreateTaskMessage()
+        {
+            TaskMessageCreateModel newTaskMessage = client.CreateTaskMessage(new TaskMessageCreateModel()
+            {
+                TaskId=1546,
+                MessageText="Hello World",
+                Position=new PositionModel
+                {
+                    Latitude=37.44,
+                    Longitude=-122.143
+                }
+            });
+            Assert.IsNotNull(newTaskMessage);
+            TaskMessageModel TaskMessage = client.GetByTaskMessageId(testTaskMessageId);
+            client.EditTaskMessage(TaskMessage.TaskMessageId, new TaskMessageEditModel()
+            {
+              IsRead=false
+            });
         }
 
     }

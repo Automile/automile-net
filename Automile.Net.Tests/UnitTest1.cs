@@ -20,22 +20,24 @@ namespace Automile.Net.Tests
         private int testPlaceId = 2245;
         private int testCompanyId = 1;
         private int testTaskMessageId = 7194;
-      
+        private string dateperiod = "2014";
+        private int vehicleId = 19;
+
 
         [TestInitialize]
         public void Initialize()
         {
             //jens test pahome
             client = new AutomileClient(@"c:\temp\tokenavinash.json");
-            
+
             // jens test paoffice
             //client = new AutomileClient(@"c:\temp\token_dev.json");
 
             // prod
-           // client = new AutomileClient(@"c:\temp\token.json");
+            // client = new AutomileClient(@"c:\temp\token.json");
 
-            
-           
+
+
         }
 
         //[TestMethod]
@@ -233,7 +235,7 @@ namespace Automile.Net.Tests
 
             client.DeleteGeofence(newGeofence.GeofenceId);
         }
-        
+
         [TestMethod]
         public void TestGetNotifications()
         {
@@ -244,7 +246,7 @@ namespace Automile.Net.Tests
             Assert.IsNotNull(notification);
         }
 
-     
+
         [TestMethod]
         public void TestCreateNotification()
         {
@@ -272,7 +274,7 @@ namespace Automile.Net.Tests
 
             client.DeleteNotification(newNotification.TriggerId);
         }
-      
+
         [TestMethod]
         public void TestGetPlaces()
         {
@@ -311,7 +313,7 @@ namespace Automile.Net.Tests
             client.DeletePlace(place.PlaceId);
         }
 
-    
+
         [TestMethod]
         public void TestGetDevices()
         {
@@ -352,7 +354,7 @@ namespace Automile.Net.Tests
             CompanyDetailModel fleetDetail = client.GetFleetById(fleets.First().CompanyId);
             Assert.IsNotNull(fleetDetail);
         }
-     
+
         [TestMethod]
         public void TestCreateFleet()
         {
@@ -385,7 +387,7 @@ namespace Automile.Net.Tests
             Assert.IsNotNull(messagesForNotification);
         }
 
-     
+
         [TestMethod]
         public void TestGetVehicleGeofences()
         {
@@ -418,7 +420,7 @@ namespace Automile.Net.Tests
             client.DeleteVehicleGeofence(newVehicleGeofence.VehicleGeofenceId);
         }
 
-    
+
         [TestMethod]
         public void TestGetVehiclePlaces()
         {
@@ -455,7 +457,7 @@ namespace Automile.Net.Tests
             client.DeleteVehiclePlace(newVehiclePlace.VehiclePlaceId);
         }
 
-      
+
         [TestMethod]
         public void TestGetDeviceEvents()
         {
@@ -467,7 +469,7 @@ namespace Automile.Net.Tests
             var ev = client.GetDeviceEventStatusById(first.IMEIEventId);
             Assert.IsNotNull(ev);
         }
-        
+
         [TestMethod]
         public void TestGetFleetContacts()
         {
@@ -509,21 +511,64 @@ namespace Automile.Net.Tests
         {
             TaskMessageCreateModel newTaskMessage = client.CreateTaskMessage(new TaskMessageCreateModel()
             {
-                TaskId=1546,
-                MessageText="Hello World",
-                Position=new PositionModel
+                TaskId = 1546,
+                MessageText = "Hello World",
+                Position = new PositionModel
                 {
-                    Latitude=37.44,
-                    Longitude=-122.143
+                    Latitude = 37.44,
+                    Longitude = -122.143
                 }
             });
             Assert.IsNotNull(newTaskMessage);
             TaskMessageModel TaskMessage = client.GetByTaskMessageId(testTaskMessageId);
             client.EditTaskMessage(TaskMessage.TaskMessageId, new TaskMessageEditModel()
             {
-              IsRead=false
+                IsRead = false
             });
         }
 
+        [TestMethod]
+        public void TestGetTripSummaryReport()
+        {
+            IEnumerable<TripSummaryReportModel> TripSummaryReport = client.GetTripSummaryReport(dateperiod);
+            Assert.IsNotNull(TripSummaryReport);
+        }
+        [TestMethod]
+        public void TestGetTripSummaryReportByVehicleId()
+        {
+            IEnumerable<TripSummaryReportModel> TripSummaryReportByVehicleId = client.GetTripSummaryReportByVehicleId(dateperiod, vehicleId);
+            Assert.IsNotNull(TripSummaryReportByVehicleId);
+        }
+
+        [TestMethod]
+        public void TestGetVehiclesSummaryReport()
+        {
+            VehiclesSummaryModel VehiclesSummary = client.GetVehiclesSummaryReport(dateperiod);
+            Assert.IsNotNull(VehiclesSummary);
+        }
+
+        [TestMethod]
+        public void TestGetVehicleSummaryReportByVehicleId()
+        {
+            VehicleSummaryModel VehicleSummary = client.GetVehicleSummaryReportByVehicleId(dateperiod, vehicleId);
+            Assert.IsNotNull(VehicleSummary);
+        }
+
+        [TestMethod]
+        public void TestEmailTripReport()
+        {
+           var StatusCode= client.EmailTripReport(new EmailTripReportModel()
+            {
+                VehicleId = 19,
+                Period = 201401,
+                ToEmail="avinash.oruganti@automile.com",
+                ISO639LanguageCode="en",
+                ExcludeDetailsForPersonalTrips=true,
+                ExcludeEnvironmentalAndFuelData=true
+            });
+
+            Assert.AreEqual(System.Net.HttpStatusCode.OK, StatusCode);
+          
+        }
     }
 }

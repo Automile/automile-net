@@ -7,7 +7,6 @@ namespace Automile.Net
 {
     public class EmailExpenseReportModel
     {
-        public int ExpenseReportId { get; set; }
         public string ToEmail { get; set; }
         public string ISO639LanguageCode { get; set; }
     }

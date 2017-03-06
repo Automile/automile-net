@@ -37,6 +37,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -112,12 +113,15 @@
     <Compile Include="Models\EmailTripReportModel.cs" />
     <Compile Include="Models\EngineCoolantTemperatureModel.cs" />
     <Compile Include="Models\ExpenseReportCreateModel.cs" />
+    <Compile Include="Models\ExpenseReportCreateModelwImage.cs" />
     <Compile Include="Models\ExpenseReportEditModel.cs" />
     <Compile Include="Models\ExpenseReportModel.cs" />
     <Compile Include="Models\ExpenseReportRowContentCreateModel.cs" />
+    <Compile Include="Models\ExpenseReportRowContentCreateModelwImage.cs" />
     <Compile Include="Models\ExpenseReportRowContentEditModel.cs" />
     <Compile Include="Models\ExpenseReportRowContentModel.cs" />
     <Compile Include="Models\ExpenseReportRowCreateModel.cs" />
+    <Compile Include="Models\ExpenseReportRowCreateModelwImage.cs" />
     <Compile Include="Models\ExpenseReportRowEditModel.cs" />
     <Compile Include="Models\ExpenseReportRowModel.cs" />
     <Compile Include="Models\FuelLevelInputModel.cs" />

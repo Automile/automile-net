@@ -6,6 +6,8 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Drawing;
 
 namespace Automile.Net
 {
@@ -43,6 +45,72 @@ namespace Automile.Net
         {
 
             string stringPayload = JsonConvert.SerializeObject(model);
+            var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
+            var response = client.PostAsync("/v1/resourceowner/expensereport", content).Result;
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
+            var urlToCreatedExpenseReport = response.Headers.GetValues("Location").First();
+            var expensereportModelResult = client.GetAsync(urlToCreatedExpenseReport).Result;
+            expensereportModelResult.EnsureSuccessStatusCodeWithProperExceptionMessage();
+            return JsonConvert.DeserializeObject<ExpenseReportModel>(expensereportModelResult.Content.ReadAsStringAsync().Result);
+        }
+
+        /// <summary>
+        /// Create an expense reports from image
+        /// </summary>
+        /// <param name="ExpenseReportCreateModelwImage"></param>
+        /// <returns></returns>
+        public ExpenseReportModel CreateExpenseReport(ExpenseReportCreateModelwImage model)
+        {
+           
+            foreach(var RowCreate in model.ExpenseReportRows)
+            {
+                foreach(var RowContent in RowCreate.ExpenseReportRowContent)
+                {
+                    using (Image image = Image.FromFile(RowContent.ImagePath))
+                    {
+                        using (MemoryStream m = new MemoryStream())
+                        {
+                            image.Save(m, image.RawFormat);
+                            byte[] imageBytes = m.ToArray();
+
+                            RowContent.ImagePath= Convert.ToBase64String(imageBytes);
+                        }
+                    }
+                }
+
+            }
+            ExpenseReportCreateModel modelCreate = new ExpenseReportCreateModel
+            {
+                VehicleId = model.VehicleId,
+                ContactId = model.ContactId,
+                TripId = model.TripId,
+                ExpenseReportDateUtc = model.ExpenseReportDateUtc,
+                ExpenseReportRows = new List<ExpenseReportRowCreateModel>()
+            };
+            foreach(var row in model.ExpenseReportRows)
+            {
+                ExpenseReportRowCreateModel RowCreate = new ExpenseReportRowCreateModel();
+                RowCreate.AmountInCurrency = row.AmountInCurrency;
+                RowCreate.VATInCurrency = row.VATInCurrency;
+                RowCreate.ISO4217CurrencyCode = row.ISO4217CurrencyCode;
+                RowCreate.Notes = row.Notes;
+                RowCreate.Category = row.Category;
+                RowCreate.ExpenseReportRowDateUtc = row.ExpenseReportRowDateUtc;
+                RowCreate.ExpenseReportRowContent = new List<ExpenseReportRowContentCreateModel>();
+
+                foreach(var rowcontent in row.ExpenseReportRowContent)
+                {
+                    ExpenseReportRowContentCreateModel RowContentCreate = new ExpenseReportRowContentCreateModel();
+                    RowContentCreate.ExpenseReportRowId = rowcontent.ExpenseReportRowId;
+                    RowContentCreate.Data = rowcontent.ImagePath;
+                    RowContentCreate.ContentType = rowcontent.ContentType;
+                    RowCreate.ExpenseReportRowContent.Add(RowContentCreate);
+                }
+                modelCreate.ExpenseReportRows.Add(RowCreate);
+            }
+
+           
+            string stringPayload = JsonConvert.SerializeObject(modelCreate);
             var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
             var response = client.PostAsync("/v1/resourceowner/expensereport", content).Result;
             response.EnsureSuccessStatusCodeWithProperExceptionMessage();

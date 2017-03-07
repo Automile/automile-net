@@ -52,6 +52,7 @@
     <Compile Include="Client\Extensions.cs" />
     <Compile Include="Client\FleetContacts.cs" />
     <Compile Include="Client\ExpenseReport.cs" />
+    <Compile Include="Client\Inspection.cs" />
     <Compile Include="Client\OwnerReport.cs" />
     <Compile Include="Client\TaskMessage.cs" />
     <Compile Include="Client\Tasks.cs" />
@@ -241,6 +242,7 @@
     <Compile Include="Types\ApiUserDeviceCertType.cs" />
     <Compile Include="Types\ApiVehicleMetadataType.cs" />
     <Compile Include="Types\ApiVehicleOwnerType.cs" />
+    <Compile Include="Types\AttachmentType.cs" />
     <Compile Include="Types\FuelType.cs" />
     <Compile Include="Types\OwnerType.cs" />
     <Compile Include="Types\TransmissionType.cs" />

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 
-namespace Automile.Net.VehicleInspection
+namespace Automile.Net
 {
     public class VehicleInspectionModel
     {

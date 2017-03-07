@@ -1,4 +1,4 @@
-﻿namespace Automile.Net.VehicleInspection
+﻿namespace Automile.Net
 {
     public class VehicleInspectionExportModel
     {

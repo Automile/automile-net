@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 
-namespace Automile.Net.VehicleInspection
+namespace Automile.Net
 {
     public class VehicleInspectionEditModel
     {
@@ -30,7 +30,7 @@ namespace Automile.Net.VehicleInspection
     public class VehicleDefectAttachmentEditModel
     {
         public int? VehicleDefectAttachmentId { get; set; }
-        public byte AttachmentType { get; set; }        
+        public ApiAttachmentType AttachmentType { get; set; }        
         public string Data { get; set; }
     }
 }

@@ -37,7 +37,7 @@ namespace Automile.Net
         }
 
         /// <summary>
-        /// Create an expense reports
+        /// Create an expense reports from base64 string image
         /// </summary>
         /// <param name="ExpenseReportCreateModel"></param>
         /// <returns></returns>
@@ -55,7 +55,7 @@ namespace Automile.Net
         }
 
         /// <summary>
-        /// Create an expense reports from image
+        /// Create an expense reports from image path
         /// </summary>
         /// <param name="ExpenseReportCreateModelwImage"></param>
         /// <returns></returns>

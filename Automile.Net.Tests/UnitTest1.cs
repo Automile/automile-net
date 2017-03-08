@@ -724,6 +724,46 @@ namespace Automile.Net.Tests
                 }
             });
             Assert.IsNotNull(newInspection);
+
+            var newInspectionfromImagePath = client.CreateInspection(new VehicleInspectionCreateModelwImage()
+            {
+                VehicleId = 40160,
+                InspectionDateUtc = DateTime.UtcNow.AddDays(-2),
+                VehicleDefects = new List<VehicleDefectCreateModelwImage>()
+                {
+                   new VehicleDefectCreateModelwImage {
+                       DefectType = ApiVehicleDefectType.Engine,
+                       Notes="Hello Inspection",
+                       VehicleDefectStatus=new List<VehicleDefectStatusCreateModel>()
+                       {
+                           new VehicleDefectStatusCreateModel
+                           {
+                               DefectStatus=ApiVehicleDefectStatusType.NotResolved
+                           }
+                       },
+                       VehicleDefectAttachments=new List<VehicleDefectAttachmentCreateModelwImage>()
+                       {
+                           new VehicleDefectAttachmentCreateModelwImage
+                           {
+                               AttachmentType=ApiAttachmentType.Image,
+                               ImagePath=@"C:\Users\avoru\Pictures\Saved Pictures\tiger.jpg"
+                           }
+                       },
+                       VehicleDefectComments=new List<VehicleDefectCommentsCreateModel>()
+                       {
+                           new VehicleDefectCommentsCreateModel
+                           {
+                               VehicleDefectId=1,
+                               Comment="what is this?"
+                           }
+                       }
+
+                   }
+                }
+            });
+            Assert.IsNotNull(newInspectionfromImagePath);
+
+
             client.EditInspection(413, new VehicleInspectionEditModel()
                 {
                VehicleId=40160,
@@ -734,7 +774,7 @@ namespace Automile.Net.Tests
                    {
                        VehicleDefectId=495,
                        DefectType=ApiVehicleDefectType.Battery,
-                       Notes="Hello Battery",
+                       Notes="Hello Battery cool",
                        DefectStatusType=ApiVehicleDefectStatusType.Resolved,
                        VehicleDefectAttachments=new List<VehicleDefectAttachmentEditModel>()
                        {

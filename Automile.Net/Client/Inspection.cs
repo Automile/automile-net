@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -57,6 +59,72 @@ namespace Automile.Net
         public VehicleInspectionModel CreateInspection(VehicleInspectionCreateModel model)
         {
             string stringPayload = JsonConvert.SerializeObject(model);
+            var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
+            var response = client.PostAsync("/v1/resourceowner/vehicleinspection", content).Result;
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
+            var urlToCreatedInspection = response.Headers.GetValues("Location").First();
+            var inspectionModelResult = client.GetAsync(urlToCreatedInspection).Result;
+            inspectionModelResult.EnsureSuccessStatusCodeWithProperExceptionMessage();
+            return JsonConvert.DeserializeObject<VehicleInspectionModel>(inspectionModelResult.Content.ReadAsStringAsync().Result);
+        }
+
+        /// <summary>
+        /// Creates a new vehicle inspection from Image Path
+        /// </summary>
+        /// <response code="200">A link in the header is returned to the newly created vehicle inspection</response>
+        /// <response code="400">Bad request, could occur for a number of cases, see returned message</response>
+        /// <response code="403">Request is forbidden, could occur for a number of reasons, see returned message</response>
+        /// <response code="500">Internal server error</response>
+        /// <param name="model">The vehicle inspection model</param>
+        /// <remarks>This will create a new vehicle inspection and make the association you set.</remarks>
+        /// <returns>A header link containing the URL to the newly created resource</returns>
+        public VehicleInspectionModel CreateInspection(VehicleInspectionCreateModelwImage model)
+        {
+            foreach (var VehicleDefect in model.VehicleDefects)
+            {
+                foreach (var DefectAttachment in VehicleDefect.VehicleDefectAttachments)
+                {
+                    using (Image image = Image.FromFile(DefectAttachment.ImagePath))
+                    {
+                        using (MemoryStream m = new MemoryStream())
+                        {
+                            image.Save(m, image.RawFormat);
+                            byte[] imageBytes = m.ToArray();
+
+                            DefectAttachment.ImagePath = Convert.ToBase64String(imageBytes);
+                        }
+                    }
+                }
+            }
+
+            VehicleInspectionCreateModel modelCreate = new VehicleInspectionCreateModel
+            {
+                VehicleId = model.VehicleId,
+                InspectionDateUtc = model.InspectionDateUtc,
+                VehicleDefects = new List<VehicleDefectCreateModel>()
+            };
+
+            foreach(var vehicleDefect in model.VehicleDefects)
+            {
+                VehicleDefectCreateModel vehicledefectCreate = new VehicleDefectCreateModel();
+
+                vehicledefectCreate.DefectType = vehicleDefect.DefectType;
+                vehicledefectCreate.Notes = vehicleDefect.Notes;
+                vehicledefectCreate.VehicleDefectStatus = vehicleDefect.VehicleDefectStatus;
+                vehicledefectCreate.VehicleDefectAttachments = new List<VehicleDefectAttachmentCreateModel>();
+
+                foreach(var defectAttachment in vehicleDefect.VehicleDefectAttachments)
+                {
+                    VehicleDefectAttachmentCreateModel defectAttachmentCreate = new VehicleDefectAttachmentCreateModel();
+                    defectAttachmentCreate.AttachmentType = defectAttachment.AttachmentType;
+                    defectAttachmentCreate.Data = defectAttachment.ImagePath;
+                    vehicledefectCreate.VehicleDefectAttachments.Add(defectAttachmentCreate);
+                }
+                vehicledefectCreate.VehicleDefectComments = vehicleDefect.VehicleDefectComments;
+                modelCreate.VehicleDefects.Add(vehicledefectCreate);
+            }
+
+            string stringPayload = JsonConvert.SerializeObject(modelCreate);
             var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
             var response = client.PostAsync("/v1/resourceowner/vehicleinspection", content).Result;
             response.EnsureSuccessStatusCodeWithProperExceptionMessage();

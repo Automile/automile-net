@@ -766,3 +766,22 @@ For modified PublishMessageType will be 2.
   "Tags": "Oakland clients, test"
 }
 ```
+#### The task message details are returned By taskMessageId
+```C#
+var TaskMessage =  client.GetByTaskMessageId(7194);
+
+#### Create a task Message
+```C#
+   var newTaskMessage = client.CreateTaskMessage(new TaskMessageCreateModel()
+            {
+                TaskId = 1546,
+                MessageText = "Hello World",
+                Position = new PositionModel
+                {
+                    Latitude = 37.44,
+                    Longitude = -122.143
+                }
+            });
+``````
+
+

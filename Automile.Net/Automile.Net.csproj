@@ -130,6 +130,7 @@
     <Compile Include="Models\GeofenceEditModel.cs" />
     <Compile Include="Models\GeofenceModel.cs" />
     <Compile Include="Models\GeofencePolygon.cs" />
+    <Compile Include="Models\GeofenceReportModel.cs" />
     <Compile Include="Models\IMEIConfigCreateModel.cs" />
     <Compile Include="Models\IMEIConfigDetailModel.cs" />
     <Compile Include="Models\IMEIConfigEditModel.cs" />
@@ -216,6 +217,7 @@
     <Compile Include="Models\VehiclesSummaryModel.cs" />
     <Compile Include="Models\VehicleStatusModel.cs" />
     <Compile Include="Models\VehicleSummaryModel.cs" />
+    <Compile Include="Models\VehicleTinyModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types\ApiApplicationType.cs" />
     <Compile Include="Types\ApiCategoryType.cs" />
@@ -245,6 +247,7 @@
     <Compile Include="Types\ApiVehicleOwnerType.cs" />
     <Compile Include="Types\AttachmentType.cs" />
     <Compile Include="Types\FuelType.cs" />
+    <Compile Include="Types\GeofenceType.cs" />
     <Compile Include="Types\OwnerType.cs" />
     <Compile Include="Types\TransmissionType.cs" />
     <Compile Include="Types\TripAccelerometerEventType.cs" />

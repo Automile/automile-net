@@ -74,5 +74,20 @@ namespace Automile.Net
             response.EnsureSuccessStatusCodeWithProperExceptionMessage();
             return response.StatusCode;
         }
+
+        /// <summary>
+        /// Get Log of GeoFences the user is authorized to
+        /// </summary>
+        /// // /// <param name=""></param>
+        /// <returns></returns>
+        public GeofenceReportModel GetGeofenceLog(int? vehicleId = null,
+                                     int? geofenceId = null,
+                                     DateTime? fromDate = null,
+                                     DateTime? toDate = null)
+        {
+            var response = client.GetAsync($"/v1/resourceowner/reports/geofencelog?vehicleId={vehicleId}&geofenceId={geofenceId}&fromDate={fromDate}&toDate={toDate}").Result;
+            response.EnsureSuccessStatusCodeWithProperExceptionMessage();
+            return JsonConvert.DeserializeObject<GeofenceReportModel>(response.Content.ReadAsStringAsync().Result);
+        }
     }
 }

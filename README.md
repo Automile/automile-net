@@ -769,6 +769,7 @@ For modified PublishMessageType will be 2.
 #### The task message details are returned By taskMessageId
 ```C#
 var TaskMessage =  client.GetByTaskMessageId(7194);
+```
 
 #### Create a task Message
 ```C#

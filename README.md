@@ -784,5 +784,68 @@ var TaskMessage =  client.GetByTaskMessageId(7194);
                 }
             });
 ```
+#### Edit task Message
+```C#
+   int testTaskMessageId = 7194;
+   TaskMessageModel TaskMessage = client.GetByTaskMessageId(testTaskMessageId);
+            client.EditTaskMessage(TaskMessage.TaskMessageId, new TaskMessageEditModel()
+            {
+                IsRead = false
+            });
+```
+#### Get Trip Summary Report
+```C#
+   IEnumerable<TripSummaryReportModel> TripSummaryReport = client.GetTripSummaryReport(2014);
+          
+```
+#### Get Trip Summary Report By VehicleId
+```C#
+  IEnumerable<TripSummaryReportModel> TripSummaryReportByVehicleId = client.GetTripSummaryReportByVehicleId(2014, 19);
+           
+```
+#### Get Vehicles Summary Report
+```C#
+   VehiclesSummaryModel VehiclesSummary = client.GetVehiclesSummaryReport(2014);
+           
+```
+
+#### Get Vehicle Summary Report By VehicleId
+```C#
+   VehicleSummaryModel VehicleSummary = client.GetVehicleSummaryReportByVehicleId(2014, 19);
+           
+```
+#### Email Trip Report
+```C#
+  client.EmailTripReport(new EmailTripReportModel()
+            {
+                VehicleId = 19,
+                Period = 201401,
+                ToEmail = "avinash.oruganti@automile.com",
+                ISO639LanguageCode = "en",
+                ExcludeDetailsForPersonalTrips = true,
+                ExcludeEnvironmentalAndFuelData = true
+            });
+           
+```
+#### Get Log of GeoFences the user is authorized to. GetGeofenceLog
+```C#
+  GeofenceReportModel GeofenceReport = client.GetGeofenceLog(19,3561,DateTime.UtcNow.AddDays(1),DateTime.UtcNow.AddDays(2));
+           
+```
+
+#### Get  Expense Reports
+```C#
+  IEnumerable<ExpenseReportModel> ExpenseReports = client.GetExpenseReports();
+           
+```
+#### Get a Expense Report
+```C#
+   ExpenseReportModel ExpenseReport = client.GetExpenseReportById(ExpenseReports.First().ExpenseReportId);
+           
+```
+
+
+
+
 
 
